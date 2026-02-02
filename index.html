@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Splash Screen - Grha Tosan Aji</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Times New Roman', Times, serif;
+            background-image: linear-gradient(rgba(17, 27, 33, 0.95), rgba(17, 27, 33, 0.98)), url('BG2.jpg');
+            color: #E0A800;
+            /* Gold color */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            background-size: cover;
+            background-attachment: fixed;
+        }
+
+        .splash-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        .logo {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 100;
+            width: 140px;
+            height: auto;
+            background-color: rgba(95, 94, 94, 0.578);
+            border: 3px solid #DAA520;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 25px rgba(218, 165, 32, 0.6);
+        }
+
+        .carousel-container {
+            position: relative;
+            width: calc(100vw - 50px);
+            height: calc(100vh - 50px);
+            max-width: none;
+            overflow: hidden;
+            border: 4px double #DAA520;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .carousel-slide {
+            display: none;
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .carousel-slide::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.8) 100%);
+            pointer-events: none;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            animation: zoomEffect 15s infinite alternate;
+        }
+
+        @keyframes zoomEffect {
+            from {
+                transform: scale(1);
+            }
+
+            to {
+                transform: scale(1.15);
+            }
+        }
+
+        .carousel-slide .caption {
+            position: absolute;
+            bottom: 40px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            color: #DAA520;
+            padding: 15px;
+            font-size: 1.6rem;
+            font-family: 'Times New Roman', serif;
+            font-style: italic;
+            text-shadow: 2px 2px 4px #000;
+            z-index: 2;
+            letter-spacing: 1px;
+        }
+
+        .prev,
+        .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: auto;
+            padding: 10px 15px;
+            color: #DAA520;
+            font-weight: bold;
+            font-size: 14px;
+            transition: 0.3s ease;
+            border-radius: 4px;
+            user-select: none;
+            background-color: rgba(17, 27, 33, 0.8);
+            border: 1px solid #DAA520;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .next {
+            right: 20px;
+        }
+
+        .prev {
+            left: 20px;
+        }
+
+        .prev:hover,
+        .next:hover {
+            background-color: #DAA520;
+            color: #111b21;
+            box-shadow: 0 0 15px rgba(218, 165, 32, 0.6);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            ;
+
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="splash-container">
+        <div class="carousel-container">
+            <div class="carousel-slide">
+                <img src="BG.jpg" alt="Keris 1">
+                <div class="caption">Koleksi Keris Pusaka</div>
+            </div>
+            <div class="carousel-slide">
+                <img src="D (17).jpeg" alt="Pusaka 1">
+                <div class="caption">Warisan Budaya Nusantara</div>
+            </div>
+            <div class="carousel-slide">
+                <img src="D (18).jpeg" alt="Ruang Koleksi 1">
+                <div class="caption">Keindahan dan Filosofi</div>
+            </div>
+            <a class="prev" onclick="plusSlides(-1)">&#10094</a>
+            <a class="next" onclick="plusSlides(1)">&#10095</a>
+        </div>
+        <img src="./logo_3.png" alt="Logo Grha Tosan Aji" class="logo">
+    </div>
+
+    <script>
+        let slideIndex = 1;
+        showSlides(slideIndex);
+
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+
+        function showSlides(n) {
+            let i;
+            let slides = document.getElementsByClassName("carousel-slide");
+            if (n > slides.length) { slideIndex = 1 }
+            if (n < 1) { slideIndex = slides.length }
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slides[slideIndex - 1].style.display = "block";
+        }
+
+        // Auto slide change
+        let autoSlide = setInterval(() => {
+            plusSlides(1);
+        }, 3000);
+
+        // Redirect to main page after 9 seconds
+        setTimeout(function () {
+            window.location.href = 'beranda.html';
+        }, 9000);
+    </script>
+</body>
+
+</html>
