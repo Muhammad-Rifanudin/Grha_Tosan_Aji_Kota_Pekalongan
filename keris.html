@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galeri Anatomi Keris</title>
+
+    <style>
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            background-image: linear-gradient(rgba(17, 27, 33, 0.95), rgba(17, 27, 33, 0.98)), url('BG2.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            color: #e9edef;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #DAA520;
+            font-size: 2rem;
+            margin-bottom: 30px;
+        }
+
+        .gallery-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .gallery-item {
+            background-color: rgba(40, 50, 60, 0.7);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 2px solid #DAA520;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            display: block;
+            cursor: pointer;
+        }
+
+        .gallery-content {
+            padding: 20px;
+        }
+
+        .gallery-content h3 {
+            margin-top: 0;
+            color: #DAA520;
+            font-size: 1.4rem;
+        }
+
+        .gallery-content p {
+            color: #b0c4de;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: #DAA520;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 1000;
+        }
+
+        /* Image Zoom Modal */
+        .image-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            padding-top: 60px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+
+        .modal-img-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+            animation-name: zoom;
+            animation-duration: 0.6s;
+        }
+
+        @keyframes zoom {
+            from {
+                transform: scale(0)
+            }
+
+            to {
+                transform: scale(1)
+            }
+        }
+
+        .close-zoom-btn {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <button class="back-btn" onclick="window.location.href='beranda.html'">❮❮❮❮</button>
+
+    <h2>Galeri Anatomi Keris</h2>
+
+    <div class="gallery-container">
+        <!-- Item 1 -->
+        <div class="gallery-item">
+            <img src="RC (1).jpg" alt="Ukiran / Deder" onclick="openImageModal(this)">
+            <div class="gallery-content">
+                <h3>1. Ukiran / Deder</h3>
+                <p>Hulu keris atau pegangan yang diukir dengan detail artistik. Selain fungsi ergonomis, motif ukirannya
+                    seringkali menyimbolkan figur pelindung atau harapan keselamatan bagi pemiliknya.</p>
+            </div>
+        </div>
+        <!-- Item 2 -->
+        <div class="gallery-item">
+            <img src="RC (2).jpg" alt="Mendak" onclick="openImageModal(this)">
+            <div class="gallery-content">
+                <h3>2. Mendak</h3>
+                <p>Cincin logam kecil berhias permata atau ukiran halus yang membatasi hulu dan bilah. Detail kriya pada
+                    mendak menunjukkan tingkat kehalusan garapan empu perhiasan.</p>
+            </div>
+        </div>
+        <!-- Item 3 -->
+        <div class="gallery-item">
+            <img src="RC (3).jpg" alt="Selut" onclick="openImageModal(this)">
+            <div class="gallery-content">
+                <h3>3. Selut</h3>
+                <p>Ornamen berbentuk mangkuk yang melingkupi mendak, memberikan kesan lebih megah pada pangkal hulu.
+                    Biasanya terdapat pada keris-keris ageman untuk acara resmi.</p>
+            </div>
+        </div>
+        <!-- Item 4 -->
+        <div class="gallery-item">
+            <img src="RC (4).jpg" alt="Pesi" onclick="openImageModal(this)">
+            <div class="gallery-content">
+                <h3>4. Pesi</h3>
+                <p>Tangkai besi yang tersembunyi di dalam hulu, merupakan 'tulang punggung' yang menghubungkan bilah
+                    dengan pegangan. Melambangkan penyatuan antara raga (bilah) dan jiwa (hulu).</p>
+            </div>
+        </div>
+        <!-- Item 5 -->
+        <div class="gallery-item">
+            <img src="RC (5).jpg" alt="Gonjo" onclick="openImageModal(this)">
+            <div class="gallery-content">
+                <h3>5. Gonjo</h3>
+                <p>Bagian dasar bilah yang melintang, tempat pesi melekat. Gonjo sering disebut sebagai 'rumah' bagi
+                    pamor yang mengalir dari bilah, menyatukan aspek maskulin dan feminin.</p>
+            </div>
+        </div>
+        <!-- Item 6 -->
+        <div class="gallery-item">
+            <img src="RC (6).jpg" alt="Bilah" onclick="openImageModal(this)">
+            <div class="gallery-content">
+                <h3>6. Bilah</h3>
+                <p>Wujud utama tosan aji, ditempa dari lipatan besi dan baja hingga ribuan lapis. Ketajaman dan
+                    kelenturannya adalah bukti penguasaan metalurgi tingkat tinggi para empu.</p>
+            </div>
+        </div>
+        <!-- Item 7 -->
+        <div class="gallery-item">
+            <img src="RC (7).jpg" alt="Pamor" onclick="openImageModal(this)">
+            <div class="gallery-content">
+                <h3>7. Pamor</h3>
+                <p>Motif artistik pada permukaan bilah yang terbentuk dari gradasi warna logam. Pamor dipercaya memiliki
+                    tuah tertentu dan menambah keindahan visual yang magis.</p>
+            </div>
+        </div>
+        <!-- Item 8 -->
+        <div class="gallery-item">
+            <img src="RC (8).jpg" alt="Warangka" onclick="openImageModal(this)">
+            <div class="gallery-content">
+                <h3>8. Warangka</h3>
+                <p>Sarung keris bagian atas (sampir) yang dibuat dari kayu pilihan dengan serat indah (pelet). Bentuknya
+                    (Gayaman/Ladrang) menyesuaikan etika busana dan situasi pemakaian.</p>
+            </div>
+        </div>
+        <!-- Item 9 -->
+        <div class="gallery-item">
+            <img src="RC (9).jpg" alt="Gandar" onclick="openImageModal(this)">
+            <div class="gallery-content">
+                <h3>9. Gandar</h3>
+                <p>Badan sarung keris yang memanjang mengikuti alur bilah. Kayu gandar biasanya dipilih yang ringan
+                    namun kuat untuk menjaga bilah dari kelembapan.</p>
+            </div>
+        </div>
+        <!-- Item 10 -->
+        <div class="gallery-item">
+            <img src="RC (10).jpg" alt="Pendok" onclick="openImageModal(this)">
+            <div class="gallery-content">
+                <h3>10. Pendok</h3>
+                <p>Lapisan pelindung gandar berbahan logam mulia seperti perak atau suasa. Ukiran pada pendok seringkali
+                    bermotif flora atau fauna yang melambangkan kemakmuran.</p>
+            </div>
+        </div>
+        <!-- Item 11 -->
+        <div class="gallery-item">
+            <img src="RC (11).jpg" alt="Pucuk" onclick="openImageModal(this)">
+            <div class="gallery-content">
+                <h3>11. Pucuk</h3>
+                <p>Ujung bilah yang meruncing tajam, titik fokus energi keris. Secara filosofis mengingatkan manusia
+                    untuk senantiasa memusatkan pikiran pada Tuhan Yang Maha Esa.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- The Modal for Image Zoom -->
+    <div id="imageModal" class="image-modal">
+        <span class="close-zoom-btn" onclick="closeImageModal()">&times;</span>
+        <img class="modal-img-content" id="zoomedImg">
+    </div>
+
+    <script>
+        const modal = document.getElementById("imageModal");
+        const modalImg = document.getElementById("zoomedImg");
+
+        function openImageModal(element) {
+            modal.style.display = "block";
+            modalImg.src = element.src;
+        }
+
+        function closeImageModal() {
+            modal.style.display = "none";
+        }
+
+        // Close if user clicks outside of the image
+        modal.onclick = function (event) {
+            if (event.target == modal) {
+                closeImageModal();
+            }
+        }
+    </script>
+</body>
+
+</html>

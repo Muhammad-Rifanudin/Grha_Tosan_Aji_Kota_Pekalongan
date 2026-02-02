@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil - Grha Tosan Aji</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            margin: 0;
+            padding: 20px;
+            background-image: linear-gradient(rgba(17, 27, 33, 0.95), rgba(17, 27, 33, 0.98)), url('BG2.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            color: #e9edef;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        .section {
+            background-color: rgba(40, 50, 60, 0.5);
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(218, 165, 32, 0.2);
+        }
+
+        .section h2 {
+            color: #DAA520;
+            border-bottom: 2px solid #DAA520;
+            padding-bottom: 10px;
+        }
+
+        .logo-display {
+            text-align: center;
+            font-size: 5rem;
+            margin: 20px 0;
+        }
+
+        .awards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .award-item {
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .back-btn {
+            background-color: #309eff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+
+        .back-btn:hover {
+            background-color: #545b62;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 80%;
+            max-height: 80%;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            border: 10px solid #8B4513;
+            border-radius: 10px;
+            background-color: #deb887;
+            z-index: 1;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #ffffff;
+            background-color: #d16519;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+            z-index: 2;
+        }
+
+        .close-btn:hover {
+            background-color: #A0522D;
+        }
+
+        .fixed-logo {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
+        }
+
+        .fixed-logo img {
+            width: 80px;
+            height: auto;
+        }
+
+        @media (max-width: 768px) {
+            .fixed-logo img {
+                width: 50px;
+            }
+        }
+
+        /* Styles for Activities Section */
+        .activities-section {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .activity-post {
+            background-color: rgba(17, 27, 33, 0.85);
+            padding: 15px;
+            border: 1px solid rgba(218, 165, 32, 0.4);
+            border-radius: 4px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+            display: none;
+            /* Hidden by default */
+        }
+
+        /* Show visible items */
+        .activity-post.visible {
+            display: block;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .activity-post h3 {
+            margin-top: 0;
+            font-size: 1.2rem;
+            color: #DAA520;
+            border-bottom: 1px solid rgba(218, 165, 32, 0.2);
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            font-family: 'Times New Roman', Times, serif;
+            letter-spacing: 0.5px;
+        }
+
+        .post-meta {
+            font-size: 0.95rem;
+            color: #b0c4de;
+            margin-bottom: 20px;
+            font-style: italic;
+            display: flex;
+            align-items: center;
+        }
+
+        .post-meta::before {
+            content: '📅';
+            margin-right: 8px;
+            font-size: 0.9rem;
+        }
+
+        .post-gallery {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .post-gallery img {
+            width: 100%;
+            height: 150px;
+            /* Proportional height */
+            object-fit: cover;
+            border: 1px solid #DAA520;
+            border-radius: 2px;
+            cursor: pointer;
+            transition: transform 0.3s, filter 0.3s;
+        }
+
+        .post-gallery img:hover {
+            transform: scale(1.02);
+            filter: brightness(1.1);
+            box-shadow: 0 5px 15px rgba(218, 165, 32, 0.2);
+        }
+
+        .post-description {
+            line-height: 1.6;
+            color: #e9edef;
+            text-align: justify;
+            font-size: 0.95rem;
+        }
+
+        .load-more-container {
+            text-align: center;
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+
+        .load-more-btn {
+            background-color: transparent;
+            color: #DAA520;
+            border: 1px solid #DAA520;
+            padding: 12px 40px;
+            font-size: 1.1rem;
+            font-family: 'Times New Roman', Times, serif;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-radius: 2px;
+        }
+
+        .load-more-btn:hover {
+            background-color: #DAA520;
+            color: #111b21;
+            box-shadow: 0 0 15px rgba(218, 165, 32, 0.4);
+        }
+
+        @media (max-width: 600px) {
+            .activities-section {
+                grid-template-columns: 1fr;
+            }
+
+            .post-gallery {
+                grid-template-columns: 1fr;
+            }
+
+            .post-gallery img {
+                height: 220px;
+            }
+        }
+
+        .menu-toggle-btn {
+            width: 100%;
+            background-color: rgba(17, 27, 33, 0.9);
+            color: #DAA520;
+            border: 1px solid #DAA520;
+            padding: 15px;
+            font-size: 1.2rem;
+            font-family: 'Times New Roman', Times, serif;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .menu-toggle-btn:hover {
+            background-color: #DAA520;
+            color: #111b21;
+        }
+
+        .menu-toggle-btn::after {
+            content: '\25BC';
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .menu-toggle-btn.active::after {
+            content: '\25B2';
+        }
+    </style>
+</head>
+
+<body>
+    <div class="fixed-logo">
+        <img src="logo_3.png" alt="Logo Grha Tosan Aji">
+    </div>
+
+    <div class="header">
+        <div class="logo">Profil Grha Tosan Aji</div>
+    </div>
+
+    <div class="section">
+        <button class="menu-toggle-btn" onclick="toggleLogoDetails(this)">Makna dan Filosofi Logo Grha Tosan
+            Aji</button>
+        <div id="logo-details" style="display: none; margin-top: 20px; animation: fadeIn 0.5s;">
+            <div class="logo-display">
+                <img src='logo_3.png' width="20%" height="20%"
+                    style="display: block; margin: 0 auto; margin-bottom: 10px;">
+            </div>
+            <h3>Logo Grha Tosan Aji </h3>
+            <p>Melambangkan rumah tradisional Jawa yang menjadi tempat penyimpanan dan pelestarian keris sebagai warisan
+                budaya
+                Indonesia. "Tosan Aji" berarti "Keris Mulia" dalam bahasa Jawa, menunjukkan komitmen kami untuk menjaga
+                dan
+                mempromosikan kekayaan budaya keris. </p>
+            <table
+                style="width: 100%; max-width: 98%; border-collapse: collapse; margin: 30px auto; font-size: 14px; border: 2px solid #8B4513; background-color: rgba(40, 50, 60, 0.5);">
+                <thead>
+                    <tr style="background-color: #DAA520; color: #111b21;">
+                        <th style="border: 1px solid #8B4513; padding: 6px; text-align: left; font-weight: bold;">Elemen
+                        </th>
+                        <th style="border: 1px solid #8B4513; padding: 6px; text-align: left; font-weight: bold;">Bentuk
+                        </th>
+                        <th style="border: 1px solid #8B4513; padding: 6px; text-align: left; font-weight: bold;">Makna
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="border: 1px solid #8B4513; padding: 6px;">Rumah</td>
+                        <td style="border: 1px solid #8B4513; padding: 6px;">Segitiga dengan atap melengkung</td>
+                        <td style="border: 1px solid #8B4513; padding: 6px;">Melambangkan rumah tradisional Jawa sebagai
+                            tempat
+                            penyimpanan keris</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid #8B4513; padding: 6px;">Keris</td>
+                        <td style="border: 1px solid #8B4513; padding: 6px;">Bilah melengkung dengan hulu</td>
+                        <td style="border: 1px solid #8B4513; padding: 6px;">Simbol kekuatan dan kebijaksanaan budaya
+                            Jawa</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid #8B4513; padding: 6px;">Tulisan "Grha Tosan Aji"</td>
+                        <td style="border: 1px solid #8B4513; padding: 6px;">Huruf Jawa kuno</td>
+                        <td style="border: 1px solid #8B4513; padding: 6px;">Nama institusi yang menunjukkan komitmen
+                            pada keris
+                            mulia</td>
+                    </tr>
+                </tbody>
+            </table>
+            <table
+                style="width: 100%; max-width: 98%; border-collapse: collapse; margin: 30px auto; font-size: 14px; border: 2px solid #8B4513; background-color: rgba(40, 50, 60, 0.5);">
+                <thead>
+                    <tr style="background-color: #DAA520; color: #111b21;">
+                        <th style="border: 1px solid #8B4513; padding: 6px; text-align: left; font-weight: bold;">Warna
+                        </th>
+                        <th style="border: 1px solid #8B4513; padding: 6px; text-align: left; font-weight: bold;">Makna
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="border: 1px solid #8B4513; padding: 6px;">Coklat tua</td>
+                        <td style="border: 1px solid #8B4513; padding: 6px;">Melambangkan rumah tradisional Jawa sebagai
+                            tempat
+                            penyimpanan keris</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid #8B4513; padding: 6px;">Emas dan hitam</td>
+                        <td style="border: 1px solid #8B4513; padding: 6px;">Simbol kekuatan dan kebijaksanaan budaya
+                            Jawa</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid #8B4513; padding: 6px;">Hitam</td>
+                        <td style="border: 1px solid #8B4513; padding: 6px;">Nama institusi yang menunjukkan komitmen
+                            pada keris
+                            mulia</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="section">
+        <button class="menu-toggle-btn" onclick="toggleSection(this, 'activities-wrapper')">Galeri Ragam Kegiatan Grha Tosan Aji</button>
+        <div id="activities-wrapper" style="display: none; margin-top: 20px; animation: fadeIn 0.5s;">
+            <p>Grha Tosan Aji aktif dalam berbagai kegiatan pelestarian budaya keris:</p>
+            <div class="activities-section" id="activitiesList">
+                <!-- Item 1 -->
+                <div class="activity-post visible">
+                    <h3>Workshop Pembuatan Keris Tradisional</h3>
+                    <p class="post-meta"><strong>Tanggal:</strong> 15 Maret 2023</p>
+                    <div class="post-gallery">
+                        <img src="D (1).jpeg" alt="Workshop 1" onclick="openModal(this.src)">
+                        <img src="D (2).jpeg" alt="Workshop 2" onclick="openModal(this.src)">
+                    </div>
+                    <p class="post-description">Kegiatan praktis pembuatan keris dengan bahan tradisional, dibimbing
+                        langsung oleh empu berpengalaman. Peserta diajarkan teknik tempa lipat yang menjadi ciri khas
+                        keris
+                        nusantara.</p>
+                </div>
+                <!-- Item 2 -->
+                <div class="activity-post visible">
+                    <h3>Pameran Keris Nasional</h3>
+                    <p class="post-meta"><strong>Tanggal:</strong> 10 Juni 2023</p>
+                    <div class="post-gallery">
+                        <img src="D (3).jpeg" alt="Pameran 1" onclick="openModal(this.src)">
+                        <img src="D (4).jpeg" alt="Pameran 2" onclick="openModal(this.src)">
+                    </div>
+                    <p class="post-description">Menampilkan ratusan koleksi keris langka dari berbagai era dan daerah di
+                        seluruh Indonesia. Acara ini dihadiri oleh kolektor, budayawan, dan masyarakat umum yang
+                        antusias.
+                    </p>
+                </div>
+                <!-- Item 3 -->
+                <div class="activity-post visible">
+                    <h3>Edukasi Sejarah dan Filosofi Keris</h3>
+                    <p class="post-meta"><strong>Tanggal:</strong> 22 September 2023</p>
+                    <div class="post-gallery">
+                        <img src="D (5).jpeg" alt="Edukasi 1" onclick="openModal(this.src)">
+                        <img src="D (6).jpeg" alt="Edukasi 2" onclick="openModal(this.src)">
+                    </div>
+                    <p class="post-description">Seminar yang mengupas tuntas makna dan nilai-nilai filosofis yang
+                        terkandung
+                        dalam setiap detail keris. Membahas pamor, dapur, dan tangguh sebagai identitas budaya.</p>
+                </div>
+                <!-- Item 4 -->
+                <div class="activity-post">
+                    <h3>Kolaborasi dengan Seniman Keris</h3>
+                    <p class="post-meta"><strong>Tanggal:</strong> 5 November 2023</p>
+                    <div class="post-gallery">
+                        <img src="D (7).jpeg" alt="Kolaborasi 1" onclick="openModal(this.src)">
+                        <img src="D (8).jpeg" alt="Kolaborasi 2" onclick="openModal(this.src)">
+                    </div>
+                    <p class="post-description">Kerja sama dengan seniman kontemporer untuk menciptakan inovasi desain
+                        keris
+                        yang tetap berakar pada tradisi. Menghasilkan karya seni yang relevan dengan zaman modern.</p>
+                </div>
+                <!-- Item 5 -->
+                <div class="activity-post">
+                    <h3>Program Konservasi Keris Pusaka</h3>
+                    <p class="post-meta"><strong>Tanggal:</strong> 12 Desember 2023</p>
+                    <div class="post-gallery">
+                        <img src="D (9).jpeg" alt="Konservasi 1" onclick="openModal(this.src)">
+                        <img src="D (10).jpeg" alt="Konservasi 2" onclick="openModal(this.src)">
+                    </div>
+                    <p class="post-description">Program pemeliharaan dan restorasi keris-keris pusaka bersejarah untuk
+                        memastikan kelestariannya. Meliputi teknik warangan dan pembersihan karat secara tradisional.
+                    </p>
+                </div>
+                <!-- Item 6 -->
+                <div class="activity-post">
+                    <h3>Upacara Jamasan Pusaka</h3>
+                    <p class="post-meta"><strong>Tanggal:</strong> 1 Suro 2023</p>
+                    <div class="post-gallery">
+                        <img src="D (11).jpeg" alt="Jamasan 1" onclick="openModal(this.src)">
+                        <img src="D (12).jpeg" alt="Jamasan 2" onclick="openModal(this.src)">
+                    </div>
+                    <p class="post-description">Ritual tahunan pencucian keris pusaka yang sakral, dilakukan pada bulan
+                        Suro. Bertujuan membersihkan fisik dan spiritual pusaka.</p>
+                </div>
+                <!-- Item 7 -->
+                <div class="activity-post">
+                    <h3>Kunjungan Delegasi Budaya</h3>
+                    <p class="post-meta"><strong>Tanggal:</strong> 15 Januari 2024</p>
+                    <div class="post-gallery">
+                        <img src="D (13).jpeg" alt="Kunjungan 1" onclick="openModal(this.src)">
+                        <img src="D (14).jpeg" alt="Kunjungan 2" onclick="openModal(this.src)">
+                    </div>
+                    <p class="post-description">Menerima kunjungan delegasi budaya dari mancanegara untuk memperkenalkan
+                        keris sebagai Masterpiece of the Oral and Intangible Heritage of Humanity.</p>
+                </div>
+                <!-- Item 8 -->
+                <div class="activity-post">
+                    <h3>Lomba Fotografi Tosan Aji</h3>
+                    <p class="post-meta"><strong>Tanggal:</strong> 20 Februari 2024</p>
+                    <div class="post-gallery">
+                        <img src="D (15).jpeg" alt="Lomba 1" onclick="openModal(this.src)">
+                        <img src="D (1).jpeg" alt="Lomba 2" onclick="openModal(this.src)">
+                    </div>
+                    <p class="post-description">Kompetisi fotografi yang mengangkat keindahan detail dan artistik dari
+                        bilah
+                        keris. Diikuti oleh fotografer profesional dan amatir.</p>
+                </div>
+                <!-- Item 9 -->
+                <div class="activity-post">
+                    <h3>Seminar Metalurgi Keris</h3>
+                    <p class="post-meta"><strong>Tanggal:</strong> 10 Maret 2024</p>
+                    <div class="post-gallery">
+                        <img src="D (2).jpeg" alt="Metalurgi 1" onclick="openModal(this.src)">
+                        <img src="D (3).jpeg" alt="Metalurgi 2" onclick="openModal(this.src)">
+                    </div>
+                    <p class="post-description">Membahas aspek ilmiah dan teknologi metalurgi di balik pembuatan keris.
+                        Mengungkap rahasia kekuatan dan keindahan pamor.</p>
+                </div>
+                <!-- Item 10 -->
+                <div class="activity-post">
+                    <h3>Museum Masuk Sekolah</h3>
+                    <p class="post-meta"><strong>Tanggal:</strong> 5 April 2024</p>
+                    <div class="post-gallery">
+                        <img src="D (4).jpeg" alt="Sekolah 1" onclick="openModal(this.src)">
+                        <img src="D (5).jpeg" alt="Sekolah 2" onclick="openModal(this.src)">
+                    </div>
+                    <p class="post-description">Program jemput bola memperkenalkan warisan budaya keris kepada generasi
+                        muda
+                        di sekolah-sekolah. Menanamkan rasa cinta budaya sejak dini.</p>
+                </div>
+                <!-- Item 11 -->
+                <div class="activity-post">
+                    <h3>Workshop Pembuatan Warangka</h3>
+                    <p class="post-meta"><strong>Tanggal:</strong> 20 Mei 2024</p>
+                    <div class="post-gallery">
+                        <img src="D (6).jpeg" alt="Warangka 1" onclick="openModal(this.src)">
+                        <img src="D (7).jpeg" alt="Warangka 2" onclick="openModal(this.src)">
+                    </div>
+                    <p class="post-description">Pelatihan khusus seni mengukir kayu untuk membuat sarung keris
+                        (warangka)
+                        yang indah dan presisi. Menggunakan kayu-kayu pilihan bertuah.</p>
+                </div>
+                <!-- Item 12 -->
+                <div class="activity-post">
+                    <h3>Bedah Buku Ensiklopedi Keris</h3>
+                    <p class="post-meta"><strong>Tanggal:</strong> 15 Juni 2024</p>
+                    <div class="post-gallery">
+                        <img src="D (8).jpeg" alt="Buku 1" onclick="openModal(this.src)">
+                        <img src="D (9).jpeg" alt="Buku 2" onclick="openModal(this.src)">
+                    </div>
+                    <p class="post-description">Diskusi mendalam mengenai literatur keris terbaru. Membedah isi buku
+                        bersama
+                        penulis dan pakar tosan aji.</p>
+                </div>
+                <!-- Item 13 -->
+                <div class="activity-post">
+                    <h3>Festival Budaya Panji</h3>
+                    <p class="post-meta"><strong>Tanggal:</strong> 10 Juli 2024</p>
+                    <div class="post-gallery">
+                        <img src="D (10).jpeg" alt="Festival 1" onclick="openModal(this.src)">
+                        <img src="D (11).jpeg" alt="Festival 2" onclick="openModal(this.src)">
+                    </div>
+                    <p class="post-description">Perayaan budaya yang menampilkan keris sebagai bagian tak terpisahkan
+                        dari
+                        epos Panji. Dimeriahkan dengan tari dan teater.</p>
+                </div>
+                <!-- Item 14 -->
+                <div class="activity-post">
+                    <h3>Sarasehan Budaya Jawa</h3>
+                    <p class="post-meta"><strong>Tanggal:</strong> 17 Agustus 2024</p>
+                    <div class="post-gallery">
+                        <img src="D (12).jpeg" alt="Sarasehan 1" onclick="openModal(this.src)">
+                        <img src="D (13).jpeg" alt="Sarasehan 2" onclick="openModal(this.src)">
+                    </div>
+                    <p class="post-description">Forum diskusi santai namun berbobot mengenai relevansi nilai-nilai luhur
+                        Jawa di era globalisasi. Keris sebagai simbol jati diri.</p>
+                </div>
+                <!-- Item 15 -->
+                <div class="activity-post">
+                    <h3>Kunjungan Studi Mahasiswa</h3>
+                    <p class="post-meta"><strong>Tanggal:</strong> 5 September 2024</p>
+                    <div class="post-gallery">
+                        <img src="D (14).jpeg" alt="Studi 1" onclick="openModal(this.src)">
+                        <img src="D (15).jpeg" alt="Studi 2" onclick="openModal(this.src)">
+                    </div>
+                    <p class="post-description">Menerima kunjungan studi dari mahasiswa jurusan Sejarah dan Antropologi
+                        untuk penelitian akademis mengenai tosan aji.</p>
+                </div>
+            </div>
+            <div class="load-more-container">
+                <button id="toggleBtn" class="load-more-btn" onclick="toggleActivities()">Tampilkan Lebih
+                    Banyak</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <button class="menu-toggle-btn" onclick="toggleSection(this, 'awards-wrapper')">Piagam dan Penghargaan</button>
+        <div id="awards-wrapper" style="display: none; margin-top: 20px; animation: fadeIn 0.5s;">
+            <div class="awards-grid">
+                <div class="award-item"
+                    style="border: 5px solid #8B4513; border-radius: 10px; box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2);">
+                    <img src="P (1).jpg" alt="Piagam Penghargaan"
+                        style="width: 100%; height: 130px; object-fit: cover; border-radius: 5px; margin-bottom: 10px; cursor: pointer;"
+                        onclick="openModal(this.src)">
+                    <h3>Piagam Penghargaan</h3>
+                    <p>Diberikan kepada Grha Tosan Aji sebagai Peserta Pameran Nasional Alat Musik dan Senjata
+                        Tradisional
+                        Nusantara.</p>
+                </div>
+                <div class="award-item"
+                    style="border: 5px solid #8B4513; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+                    <img src="P (2).jpg" alt="Sertifikat Akreditasi"
+                        style="width: 100%; height: 120px; object-fit: cover; border-radius: 5px; margin-bottom: 10px; cursor: pointer;"
+                        onclick="openModal(this.src)">
+                    <h3>Sertifikat Akreditasi</h3>
+                    <p>Direktorat Jenderal Kebudayaan menetapkan Museum Tosan Aji dengan Status Terakreditasi B.</p>
+                </div>
+                <div class="award-item"
+                    style="border: 5px solid #8B4513; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+                    <img src="P (3).jpg" alt="Piagam Warisan Budaya"
+                        style="width: 100%; height: 120px; object-fit: cover; border-radius: 5px; margin-bottom: 10px; cursor: pointer;"
+                        onclick="openModal(this.src)">
+                    <h3>Warisan Budaya Takbenda</h3>
+                    <p>Sertifikat penetapan Keris sebagai Warisan Budaya Takbenda Indonesia oleh Kementerian Pendidikan
+                        dan
+                        Kebudayaan.</p>
+                </div>
+                <div class="award-item"
+                    style="border: 5px solid #8B4513; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+                    <img src="P (4).jpg" alt="Ucapan Terima Kasih"
+                        style="width: 100%; height: 120px; object-fit: cover; border-radius: 5px; margin-bottom: 10px; cursor: pointer;"
+                        onclick="openModal(this.src)">
+                    <h3>Ucapan Terima Kasih</h3>
+                    <p>Atas partisipasi dan dukungan dalam penyelenggaraan Festival Budaya Daerah dan Pameran Museum
+                        se-Jawa
+                        Tengah.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal" class="modal">
+        <button class="close-btn" onclick="closeModal()">Tutup</button>
+        <img class="modal-content" id="modal-img">
+    </div>
+
+    <button class="back-btn" style="position: fixed;" onclick="window.location.href='beranda.html'">❮❮❮❮</button>
+
+    <script>
+        function openModal(src) {
+            document.getElementById('modal').style.display = 'block';
+            document.getElementById('modal-img').src = src;
+        }
+
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function (event) {
+            if (event.target == document.getElementById('modal')) {
+                closeModal();
+            }
+        }
+
+        function toggleActivities() {
+            const posts = document.querySelectorAll('.activity-post');
+            const btn = document.getElementById('toggleBtn');
+            const isExpanded = btn.getAttribute('data-expanded') === 'true';
+
+            if (!isExpanded) {
+                // Show all
+                posts.forEach(post => post.classList.add('visible'));
+                btn.textContent = "Tampilkan Lebih Sedikit";
+                btn.setAttribute('data-expanded', 'true');
+            } else {
+                // Show only first 3
+                posts.forEach((post, index) => {
+                    if (index >= 3) post.classList.remove('visible');
+                });
+                btn.textContent = "Tampilkan Lebih Banyak";
+                btn.setAttribute('data-expanded', 'false');
+                // Scroll back to top of list
+                document.getElementById('activitiesList').scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        function toggleSection(btn, id) {
+            const section = document.getElementById(id);
+            if (section.style.display === 'none') {
+                section.style.display = 'block';
+                btn.classList.add('active');
+            } else {
+                section.style.display = 'none';
+                btn.classList.remove('active');
+            }
+        }
+
+        function toggleLogoDetails(btn) {
+            const details = document.getElementById('logo-details');
+            if (details.style.display === 'none') {
+                details.style.display = 'block';
+                btn.classList.add('active');
+            } else {
+                details.style.display = 'none';
+                btn.classList.remove('active');
+            }
+        }
+    </script>
+</body>
+
+</html>

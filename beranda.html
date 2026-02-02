@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grha Tosan Aji - Beranda</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            margin: 0;
+            padding: 0;
+            background-color: #050505;
+            /* Dark background */
+            color: #e9edef;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        /* Container mimicking mobile app */
+        .app-container {
+            width: 100%;
+            background-color: #111b21;
+            /* Background item keemasan dengan motif batik transparan */
+            background-image: linear-gradient(rgba(69, 69, 69, 0.92), rgba(40, 40, 40, 0.96)), url('BG2.jpg');
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Cover Image Area */
+        .cover-area {
+            height: 180px;
+            /* Gradient adopting logo colors: Dark Brown to Gold */
+            background: url('BG.jpg') no-repeat center center;
+            background-size: cover;
+            position: relative;
+        }
+
+        /* Profile Header Section */
+        .profile-header {
+            padding: 0 20px 20px;
+            /* Padding for text content */
+            margin-top: -70px;
+            /* Half of logo height */
+            position: relative;
+            border-bottom: 1px solid #202c33;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .profile-pic-wrapper {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .profile-pic-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            box-sizing: border-box;
+        }
+
+        .title {
+            font-size: 1.6rem;
+            color: #DAA520;
+            /* Gold color */
+            margin: 0;
+            font-weight: 600;
+        }
+
+        .subtitle {
+            color: #8696a0;
+            margin: 5px 0 15px;
+            font-size: 1rem;
+        }
+
+        .description {
+            color: #d1d7db;
+            font-size: 0.95rem;
+            line-height: 1.4;
+            margin-bottom: 10px;
+        }
+
+        /* Menu List */
+        .menu-list {
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            gap: 15px;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: #e9edef;
+            justify-content: center;
+            background: linear-gradient(to right, rgba(20, 30, 40, 0.9), rgba(40, 50, 60, 0.9));
+            border: 1px solid #DAA520;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .menu-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 5px;
+            background: linear-gradient(to bottom, #DAA520, #8B4513);
+        }
+
+        .menu-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(218, 165, 32, 0.3);
+            background: linear-gradient(to right, rgba(30, 40, 50, 0.95), rgba(50, 60, 70, 0.95));
+            border-color: #FFD700;
+        }
+
+        .menu-content {
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            z-index: 1;
+        }
+
+        .menu-title {
+            font-size: 1.4rem;
+            color: #DAA520;
+            margin-bottom: 5px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .menu-desc {
+            font-size: 0.9rem;
+            color: #d1d7db;
+            font-style: italic;
+            letter-spacing: 0.5px;
+        }
+
+        .footer {
+            margin-top: auto;
+            padding: 30px 20px;
+            text-align: center;
+            color: #8696a0;
+            font-size: 0.8rem;
+        }
+
+        .fixed-logo {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
+        }
+
+        .fixed-logo img {
+            width: 60px;
+            height: auto;
+            filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.5));
+        }
+
+        @media (max-width: 768px) {
+            .app-container {
+                max-width: 100%;
+                border: none;
+                min-height: 100vh;
+            }
+
+            .fixed-logo img {
+                width: 50px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="app-container">
+        <div class="cover-area"></div>
+
+        <div class="profile-header">
+            <div class="profile-pic-wrapper">
+                <img src="./logo_3.png" alt="Logo Grha Tosan Aji">
+            </div>
+            <h1 class="title">Grha Tosan Aji</h1>
+            <p class="subtitle">Rumah Keris Pekalongan</p>
+            <p class="description">Melestarikan budaya keris nusantara. Pusat edukasi, konservasi, dan apresiasi tosan
+                aji.</p>
+        </div>
+
+        <div class="menu-list">
+            <div class="menu-item" onclick="window.location.href='profil.html'">
+                <div class="menu-content">
+                    <span class="menu-title">Profil</span>
+                    <span class="menu-desc">Logo, Makna, Kegiatan, dan Penghargaan</span>
+                </div>
+            </div>
+
+            <div class="menu-item" onclick="window.location.href='katalog.html'">
+                <div class="menu-content">
+                    <span class="menu-title">Katalog</span>
+                    <span class="menu-desc">Koleksi Keris dengan Detail Lengkap</span>
+                </div>
+            </div>
+
+            <div class="menu-item" onclick="window.location.href='kunjungan.html'">
+                <div class="menu-content">
+                    <span class="menu-title">Kunjungan</span>
+                    <span class="menu-desc">Paket Edukasi dan Booking Kunjungan</span>
+                </div>
+            </div>
+
+            <div class="menu-item" onclick="window.location.href='toko.html'">
+                <div class="menu-content">
+                    <span class="menu-title">Toko</span>
+                    <span class="menu-desc">Jual Keris dan Jasa Perawatan</span>
+                </div>
+            </div>
+
+            <div class="menu-item" onclick="window.location.href='keris.html'">
+                <div class="menu-content">
+                    <span class="menu-title">Anatomi Keris</span>
+                    <span class="menu-desc">Pelajari Bagian-bagian Keris</span>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p>&copy; 2025 Grha Tosan Aji.<br>Semua hak dilindungi.</p>
+        </footer>
+    </div>
+
+    <div class="fixed-logo">
+        <img src="./logo_3.png" alt="Logo Grha Tosan Aji">
+    </div>
+
+</body>
+
+</html>

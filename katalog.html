@@ -1,0 +1,1234 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Katalog - Grha Tosan Aji</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            margin: 0;
+            padding: 20px;
+            background-image: linear-gradient(rgba(17, 27, 33, 0.95), rgba(17, 27, 33, 0.98)), url('BG2.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            color: #e9edef;
+        }
+        h1 {
+            text-align: center;
+            color: #DAA520;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+        }
+        
+        .catalog {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .keris-item {
+            background-color: rgba(40, 50, 60, 0.7);
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 15px;
+            text-align: center;
+            border: 2px solid #DAA520;
+            transition: transform 0.2s;
+        }
+        .keris-item:hover {
+            transform: translateY(-5px);
+        }
+        .keris-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+        .keris-image-container {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            background-color: #000;
+        }
+        .keris-gallery-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        .keris-gallery-image.active {
+            display: block;
+        }
+        .keris-image-container .prev,
+        .keris-image-container .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            padding: 8px 12px;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            transition: 0.3s ease;
+            user-select: none;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 2;
+        }
+        .keris-image-container .next {
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
+        .keris-item h3 {
+            margin: 10px 0;
+            color: #DAA520;
+        }
+        .keris-item p {
+            color: #b0c4de;
+            font-size: 14px;
+        }
+        
+        .view-profile-btn, .back-btn {
+            background-color: #DAA520;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .view-profile-btn:hover, .back-btn:hover {
+            background-color: #b8860b;
+        }
+        .profile-modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+        .profile-content {
+            background-color: #111b21;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #DAA520;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 8px;
+            color: #e9edef;
+            display: flex;
+            flex-direction: column;
+        }
+        .close-btn {
+            color: #aaa;
+            align-self: flex-end;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close-btn:hover {
+            color: #DAA520;
+        }
+        .details-container {
+            display: flex;
+            gap: 20px;
+            margin: 20px 0;
+            align-items: flex-start;
+            width: 100%;
+        }
+        .image-column {
+            flex: 1;
+            max-width: 45%;
+        }
+        .details-image {
+            position: relative;
+        }
+        .details-image .keris-gallery-image {
+            width: 100%;
+            height: 100%;
+            max-height: 400px;
+            object-fit: contain;
+            cursor: pointer;
+        }
+        .details-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 4px;
+        }
+        .details-text {
+            flex: 1.5;
+            text-align: left;
+        }
+        #profile-details h3 {
+            text-align: center;
+        }
+        #profile-video {
+            width: 100%;
+            height: 315px;
+            border: none;
+        }
+        .access-code-input {
+            margin: 10px 0;
+            padding: 10px;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        #btn-rincian { background-color: #DAA520; color: white; }
+        #btn-rincian:hover { background-color: #b8860b; }
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+        .fixed-logo {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+}
+
+.fixed-logo img {
+    width: 80px;
+    height: auto;
+}
+@media (max-width: 768px) {
+    .fixed-logo img {
+        width: 50px;
+    }
+    .profile-content {
+        width: 90%;
+        margin: 10% auto;
+    }
+    .details-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    .image-column {
+        max-width: 90%;
+        width: 100%;
+    }
+}
+/* Image View Modal Styles */
+.image-view-modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.image-view-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 90%;
+    max-height: 90%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border: 2px solid #DAA520;
+    border-radius: 4px;
+}
+
+.image-view-close {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    color: #ffffff;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 2001;
+}
+
+.nav-btn {
+    background-color: #DAA520;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 16px;
+}
+.nav-btn:hover {
+    background-color: #b8860b;
+}
+    </style>
+</head>
+<body>
+    <div class="fixed-logo">
+    <img src="logo_3.png" alt="Logo Grha Tosan Aji">
+</div>    <h1>Katalog Keris Grha Tosan Aji</h1>
+    <div id="catalog" class="catalog">
+        <!-- Katalog keris akan ditampilkan di sini -->
+    </div>
+
+    <!-- Modal untuk profil keris -->
+    <div id="profile-modal" class="profile-modal">
+        <div class="profile-content">
+            <span class="close-btn" onclick="closeProfile()">&times;</span>
+            <h2 id="profile-title"></h2>
+            <div id="access-code-section" style="display: none;">
+                <p>Tanyakan KODE pada PETUGAS</p>
+                <p>Masukkan kode akses untuk melihat detail keris:</p>
+                <input type="password" id="access-code" class="access-code-input" placeholder="Kode Akses">
+                <button onclick="checkAccessCode()">Akses</button>
+            </div>
+            <div id="profile-details" style="display: none;">
+                <div class="details-container">
+                    <div class="image-column">
+                        <div class="details-image keris-image-container" id="modal-image-container">
+                            <!-- Gambar dan panah akan dimasukkan oleh JavaScript -->
+                        </div>
+                        <div id="gallery-controls" style="display: none; justify-content: center; align-items: center; gap: 15px; margin-top: 10px;">
+                            <button class="nav-btn" onclick="changeModalSlide(-1)">&#10094;</button>
+                            <span id="image-counter" style="color: #DAA520; font-weight: bold;"></span>
+                            <button class="nav-btn" onclick="changeModalSlide(1)">&#10095;</button>
+                        </div>
+                    </div>
+                    <div class="details-text">
+                        <p id="profile-description"></p>
+                        <p><strong>No.Inventaris:</strong> <span id="profile-inventory"></span></p>
+                        <p><strong>Bentuk Objek:</strong> <span id="profile-shape"></span></p>
+                        <p><strong>Panjang:</strong> <span id="profile-length"></span></p>
+                        <p><strong>Dapur:</strong> <span id="profile-dapur"></span></p>
+                        <p><strong>Pamor:</strong> <span id="profile-pamor"></span></p>
+                        <p><strong>Tangguh:</strong> <span id="profile-tangguh"></span></p>
+                        <p><strong>Warangka:</strong> <span id="profile-warangka"></span></p>
+                        <p><strong>Deder / Pegangan:</strong> <span id="profile-deder"></span></p>
+                        <p><strong>Pendhok:</strong> <span id="profile-pendhok"></span></p>
+                        <p><strong>Penghibah:</strong> <span id="profile-penghibah"></span></p>
+                        <p><strong>QR Code:</strong></p>
+                        <img id="profile-qr" style="width: 120px; height: 120px; margin: 15px 0;" >
+                    </div>
+                </div>
+                <h3>Video Penjelasan</h3>
+                <iframe id="profile-video" src="" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- The Modal for Image View -->
+    <div id="image-view-modal" class="image-view-modal" onclick="closeImageViewModal()">
+        <span class="image-view-close" onclick="closeImageViewModal()">&times;</span>
+        <img class="image-view-content" id="view-img">
+    </div>
+
+    <button class="back-btn" style="position: fixed;" onclick="window.location.href='beranda.html'">❮❮❮❮</button>
+
+    <script>
+        // Data katalog keris (contoh)
+        const kerisCatalog = [
+            {
+                id: 'KR001',
+                qrCode: 'katalog.html#KR001',
+                name: 'Keris Pusaka Jawa Tengah',
+                description: 'Keris pusaka dengan ukiran khas Jawa Tengah. Keris ini memiliki nilai sejarah tinggi.',
+                images: ['KR (1).JPG', 'KR (2).JPG', 'KR (3).JPG', 'KR (4).JPG'],
+                video: 'https://drive.google.com/file/d/1K50D-p7yEmzPZx5hn0s4M9ldkCIXhF0z/preview',
+                shape: 'Lurus',
+                length: '40 cm',
+                dapur: 'Dapur Jawa',
+                pamor: 'Pamor Klasik',
+                tangguh: 'Tangguh',
+                warangka: 'Warangka Emas',
+                deder: 'Deder Kayu',
+                pendhok: 'Pendhok Perak',
+                penghibah: 'Penghibah Emas',
+                accessCode: '0001'
+            },
+            {
+                id: 'KR002',
+                qrCode: 'katalog.html#KR002',
+                name: 'Keris Madura',
+                description: 'Keris khas Madura dengan motif unik. Dikenal dengan kekuatannya.',
+                images: ['KR (2).JPG', 'KR (3).JPG', 'KR (4).JPG', 'KR (5).JPG'],
+                video: 'https://www.youtube.com/embed/QK8j_CzPgpk',
+                shape: 'Lurus',
+                length: '42 cm',
+                dapur: 'Dapur Madura',
+                pamor: 'Pamor Pamor',
+                tangguh: 'Tangguh',
+                warangka: 'Warangka Perak',
+                deder: 'Deder Kayu',
+                pendhok: 'Pendhok Emas',
+                penghibah: 'Penghibah Perak',
+                accessCode: '0002'
+            },
+            {
+                id: 'KR003',
+                qrCode: 'katalog.html#KR003',
+                name: 'Keris Bali',
+                description: 'Keris tradisional Bali dengan ornamen emas. Memiliki nilai estetika tinggi.',
+                images: ['KR (3).JPG', 'KR (4).JPG', 'KR (5).JPG', 'KR (6).JPG'],
+                video: 'https://drive.google.com/file/d/DRIVE_FILE_ID_KR003/preview',
+                shape: 'Lurus',
+                length: '38 cm',
+                dapur: 'Dapur Bali',
+                pamor: 'Pamor Bali',
+                tangguh: 'Tangguh',
+                warangka: 'Warangka Emas',
+                deder: 'Deder Kayu',
+                pendhok: 'Pendhok Perak',
+                penghibah: 'Penghibah Emas',
+                accessCode: '0003'
+            },
+            {
+                id: 'KR004',
+                qrCode: 'katalog.html#KR004',
+                name: 'Keris Jawa Barat',
+                description: 'Keris dari Jawa Barat dengan desain klasik.',
+                images: ['KR (4).JPG', 'KR (5).JPG', 'KR (6).JPG', 'KR (7).JPG'],
+                video: 'https://drive.google.com/file/d/DRIVE_FILE_ID_KR004/preview',
+                shape: 'Lurus',
+                length: '41 cm',
+                dapur: 'Dapur Jawa Barat',
+                pamor: 'Pamor Klasik',
+                tangguh: 'Tangguh',
+                warangka: 'Warangka Perak',
+                deder: 'Deder Kayu',
+                pendhok: 'Pendhok Emas',
+                penghibah: 'Penghibah Perak',
+                accessCode: '0004'
+            },
+            {
+                id: 'KR005',
+                qrCode: 'katalog.html#KR005',
+                name: 'Keris Yogyakarta',
+                description: 'Keris khas Yogyakarta dengan pamor indah.',
+                images: ['KR (5).JPG', 'KR (6).JPG', 'KR (7).JPG', 'KR (8).JPG'],
+                video: 'https://drive.google.com/file/d/DRIVE_FILE_ID_KR005/preview',
+                shape: 'Lurus',
+                length: '39 cm',
+                dapur: 'Dapur Yogyakarta',
+                pamor: 'Pamor Indah',
+                tangguh: 'Tangguh',
+                warangka: 'Warangka Emas',
+                deder: 'Deder Kayu',
+                pendhok: 'Pendhok Perak',
+                penghibah: 'Penghibah Emas',
+                accessCode: '0005'
+            },
+            {
+                id: 'KR006',
+                qrCode: 'katalog.html#KR006',
+                name: 'Keris Surakarta',
+                description: 'Keris dari Surakarta dengan nilai budaya tinggi.',
+                images: ['KR (6).JPG', 'KR (7).JPG', 'KR (8).JPG', 'KR (9).JPG'],
+                video: 'https://drive.google.com/file/d/DRIVE_FILE_ID_KR006/preview',
+                shape: 'Lurus',
+                length: '43 cm',
+                dapur: 'Dapur Surakarta',
+                pamor: 'Pamor Klasik',
+                tangguh: 'Tangguh',
+                warangka: 'Warangka Emas',
+                deder: 'Deder Kayu',
+                pendhok: 'Pendhok Perak',
+                penghibah: 'Penghibah Emas',
+                accessCode: '0006'
+            },
+            {
+                id: 'KR007',
+                qrCode: 'katalog.html#KR007',
+                name: 'Keris Cirebon',
+                description: 'Keris Cirebon dengan motif unik.',
+                images: ['KR (7).JPG', 'KR (8).JPG', 'KR (9).JPG', 'KR (10).JPG'],
+                video: 'https://drive.google.com/file/d/DRIVE_FILE_ID_KR007/preview',
+                shape: 'Lurus',
+                length: '37 cm',
+                dapur: 'Dapur Cirebon',
+                pamor: 'Pamor Klasik',
+                tangguh: 'Tangguh',
+                warangka: 'Warangka Perak',
+                deder: 'Deder Kayu',
+                pendhok: 'Pendhok Emas',
+                penghibah: 'Penghibah Perak',
+                accessCode: '0007'
+            },
+            {
+                id: 'KR008',
+                qrCode: 'katalog.html#KR008',
+                name: 'Keris Banten',
+                description: 'Keris dari Banten dengan desain tradisional.',
+                images: ['KR (8).JPG', 'KR (9).JPG', 'KR (10).JPG', 'KR (11).JPG'],
+                video: 'https://drive.google.com/file/d/DRIVE_FILE_ID_KR008/preview',
+                shape: 'Lurus',
+                length: '44 cm',
+                dapur: 'Dapur Banten',
+                pamor: 'Pamor Klasik',
+                tangguh: 'Tangguh',
+                warangka: 'Warangka Emas',
+                deder: 'Deder Kayu',
+                pendhok: 'Pendhok Perak',
+                penghibah: 'Penghibah Emas',
+                accessCode: '0008'
+            },
+            {
+                id: 'KR009',
+                qrCode: 'katalog.html#KR009',
+                name: 'Keris Lampung',
+                description: 'Keris khas Lampung dengan ornamen khusus.',
+                images: ['KR (9).JPG', 'KR (10).JPG', 'KR (11).JPG', 'KR (12).JPG'],
+                video: 'https://drive.google.com/file/d/DRIVE_FILE_ID_KR009/preview',
+                shape: 'Lurus',
+                length: '45 cm',
+                dapur: 'Dapur Lampung',
+                pamor: 'Pamor Klasik',
+                tangguh: 'Tangguh',
+                warangka: 'Warangka Perak',
+                deder: 'Deder Kayu',
+                pendhok: 'Pendhok Emas',
+                penghibah: 'Penghibah Perak',
+                accessCode: '0009'
+            },
+            {
+                id: 'KR010',
+                qrCode: 'katalog.html#KR010',
+                name: 'Keris Jawa Timur',
+                description: 'Keris dari Jawa Timur dengan kekuatan legendaris.',
+                images: ['KR (10).JPG', 'KR (11).JPG', 'KR (12).JPG', 'KR (13).JPG'],
+                video: 'https://drive.google.com/file/d/DRIVE_FILE_ID_KR010/preview',
+                shape: 'Lurus',
+                length: '46 cm',
+                dapur: 'Dapur Jawa Timur',
+                pamor: 'Pamor Klasik',
+                tangguh: 'Tangguh',
+                warangka: 'Warangka Emas',
+                deder: 'Deder Kayu',
+                pendhok: 'Pendhok Perak',
+                penghibah: 'Penghibah Emas',
+                accessCode: '0010'
+            },
+            {
+                id: 'KR011',
+                qrCode: 'katalog.html#KR011',
+                name: 'Keris Pusaka Kediri',
+                description: 'Keris pusaka dari Kediri dengan nilai sejarah.',
+                images: ['KR (11).JPG', 'KR (12).JPG', 'KR (13).JPG', 'KR (14).JPG'],
+                video: 'https://drive.google.com/file/d/DRIVE_FILE_ID_KR011/preview',
+                shape: 'Lurus',
+                length: '47 cm',
+                dapur: 'Dapur Kediri',
+                pamor: 'Pamor Klasik',
+                tangguh: 'Tangguh',
+                warangka: 'Warangka Emas',
+                deder: 'Deder Kayu',
+                pendhok: 'Pendhok Perak',
+                penghibah: 'Penghibah Emas',
+                accessCode: '0011'
+            },
+            {
+                id: 'KR012',
+                qrCode: 'katalog.html#KR012',
+                name: 'Keris Malang',
+                description: 'Keris dari Malang dengan motif indah.',
+                images: ['KR (12).JPG', 'KR (13).JPG', 'KR (14).JPG', 'KR (15).JPG'],
+                video: 'https://drive.google.com/file/d/DRIVE_FILE_ID_KR012/preview',
+                shape: 'Lurus',
+                length: '48 cm',
+                dapur: 'Dapur Malang',
+                pamor: 'Pamor Klasik',
+                tangguh: 'Tangguh',
+                warangka: 'Warangka Perak',
+                deder: 'Deder Kayu',
+                pendhok: 'Pendhok Emas',
+                penghibah: 'Penghibah Perak',
+                accessCode: '0012'
+            },
+            {
+                id: 'KR013',
+                qrCode: 'katalog.html#KR013',
+                name: 'Keris Semarang',
+                description: 'Keris Semarang dengan desain klasik.',
+                images: ['KR (13).JPG', 'KR (14).JPG', 'KR (15).JPG', 'KR (16).JPG'],
+                video: 'https://drive.google.com/file/d/DRIVE_FILE_ID_KR013/preview',
+                shape: 'Lurus',
+                length: '49 cm',
+                dapur: 'Dapur Semarang',
+                pamor: 'Pamor Klasik',
+                tangguh: 'Tangguh',
+                warangka: 'Warangka Emas',
+                deder: 'Deder Kayu',
+                pendhok: 'Pendhok Perak',
+                penghibah: 'Penghibah Emas',
+                accessCode: '0013'
+            },
+            {
+                id: 'KR014',
+                qrCode: 'katalog.html#KR014',
+                name: 'Keris Solo',
+                description: 'Keris khas Solo dengan pamor berkualitas.',
+                images: ['KR (14).JPG', 'KR (15).JPG', 'KR (16).JPG', 'KR (17).JPG'],
+                video: 'https://drive.google.com/file/d/DRIVE_FILE_ID_KR014/preview',
+                shape: 'Lurus',
+                length: '50 cm',
+                dapur: 'Dapur Solo',
+                pamor: 'Pamor Klasik',
+                tangguh: 'Tangguh',
+                warangka: 'Warangka Perak',
+                deder: 'Deder Kayu',
+                pendhok: 'Pendhok Emas',
+                penghibah: 'Penghibah Perak',
+                accessCode: '0014'
+            },
+            {
+                id: 'KR015',
+                qrCode: 'katalog.html#KR015',
+                name: 'Keris Pekalongan',
+                description: 'Keris dari Pekalongan dengan ornamen emas.',
+                images: ['KR (15).JPG', 'KR (16).JPG', 'KR (17).JPG', 'KR (18).JPG'],
+                video: 'https://drive.google.com/file/d/DRIVE_FILE_ID_KR015/preview',
+                shape: 'Lurus',
+                length: '51 cm',
+                dapur: 'Dapur Pekalongan',
+                pamor: 'Pamor Klasik',
+                tangguh: 'Tangguh',
+                warangka: 'Warangka Emas',
+                deder: 'Deder Kayu',
+                pendhok: 'Pendhok Perak',
+                penghibah: 'Penghibah Emas',
+                accessCode: '0015'
+            },
+            {
+                id: 'KR016',
+                qrCode: 'katalog.html#KR016',
+                name: 'Keris Tegal',
+                description: 'Keris Tegal dengan motif unik.',
+                images: ['KR (16).JPG', 'KR (17).JPG', 'KR (18).JPG', 'KR (19).JPG'],
+                video: 'https://drive.google.com/file/d/DRIVE_FILE_ID_KR016/preview',
+                shape: 'Lurus',
+                length: '52 cm',
+                dapur: 'Dapur Tegal',
+                pamor: 'Pamor Klasik',
+                tangguh: 'Tangguh',
+                warangka: 'Warangka Perak',
+                deder: 'Deder Kayu',
+                pendhok: 'Pendhok Emas',
+                penghibah: 'Penghibah Perak',
+                accessCode: '0016'
+            },
+            {
+                id: 'KR017',
+                qrCode: 'katalog.html#KR017',
+                name: 'Keris Bandung',
+                description: 'Keris dari Bandung dengan desain modern.',
+                images: ['KR (17).JPG', 'KR (18).JPG', 'KR (19).JPG', 'KR (20).JPG'],
+                video: 'https://drive.google.com/file/d/DRIVE_FILE_ID_KR017/preview',
+                shape: 'Lurus',
+                length: '53 cm',
+                dapur: 'Dapur Bandung',
+                pamor: 'Pamor Klasik',
+                tangguh: 'Tangguh',
+                warangka: 'Warangka Emas',
+                deder: 'Deder Kayu',
+                pendhok: 'Pendhok Perak',
+                penghibah: 'Penghibah Emas',
+                accessCode: '0017'
+            },
+            {
+                id: 'KR018',
+                qrCode: 'katalog.html#KR018',
+                name: 'Keris Bogor',
+                description: 'Keris Bogor dengan nilai estetika tinggi.',
+                images: ['KR (18).JPG', 'KR (19).JPG', 'KR (20).JPG', 'KR (21).JPG'],
+                video: 'https://drive.google.com/file/d/DRIVE_FILE_ID_KR018/preview',
+                shape: 'Lurus',
+                length: '54 cm',
+                dapur: 'Dapur Bogor',
+                pamor: 'Pamor Klasik',
+                tangguh: 'Tangguh',
+                warangka: 'Warangka Perak',
+                deder: 'Deder Kayu',
+                pendhok: 'Pendhok Emas',
+                penghibah: 'Penghibah Perak',
+                accessCode: '0018'
+            },
+            {
+                id: 'KR019',
+                qrCode: 'katalog.html#KR019',
+                name: 'Keris Sukabumi',
+                description: 'Keris dari Sukabumi dengan motif tradisional.',
+                images: ['KR (19).JPG', 'KR (20).JPG', 'KR (21).JPG', 'KR (22).JPG'],
+                video: 'https://drive.google.com/file/d/DRIVE_FILE_ID_KR019/preview',
+                shape: 'Lurus',
+                length: '55 cm',
+                dapur: 'Dapur Sukabumi',
+                pamor: 'Pamor Klasik',
+                tangguh: 'Tangguh',
+                warangka: 'Warangka Emas',
+                deder: 'Deder Kayu',
+                pendhok: 'Pendhok Perak',
+                penghibah: 'Penghibah Emas',
+                accessCode: '0019'
+            },
+            {
+                id: 'KR020',
+                qrCode: 'katalog.html#KR020',
+                name: 'Keris Garut',
+                description: 'Keris Garut dengan kekuatan spiritual.',
+                images: ['KR (20).JPG', 'KR (21).JPG', 'KR (22).JPG', 'KR (23).JPG'],
+                video: 'https://drive.google.com/file/d/DRIVE_FILE_ID_KR020/preview',
+                shape: 'Lurus',
+                length: '56 cm',
+                dapur: 'Dapur Garut',
+                pamor: 'Pamor Klasik',
+                tangguh: 'Tangguh',
+                warangka: 'Warangka Perak',
+                deder: 'Deder Kayu',
+                pendhok: 'Pendhok Emas',
+                penghibah: 'Penghibah Perak',
+                accessCode: '0020'
+            },
+            {
+                id: 'KR021',
+                qrCode: 'katalog.html#KR021',
+                name: 'Keris Tasikmalaya',
+                description: 'Keris dari Tasikmalaya dengan desain indah.',
+                images: ['KR (21).JPG', 'KR (22).JPG', 'KR (23).JPG', 'KR (24).JPG'],
+                video: 'https://drive.google.com/file/d/DRIVE_FILE_ID_KR021/preview',
+                shape: 'Lurus',
+                length: '57 cm',
+                dapur: 'Dapur Tasikmalaya',
+                pamor: 'Pamor Klasik',
+                tangguh: 'Tangguh',
+                warangka: 'Warangka Emas',
+                deder: 'Deder Kayu',
+                pendhok: 'Pendhok Perak',
+                penghibah: 'Penghibah Emas',
+                accessCode: '0021'
+            },
+            {
+                id: 'KR022',
+                qrCode: 'katalog.html#KR022',
+                name: 'Keris Ciamis',
+                description: 'Keris Ciamis dengan motif klasik.',
+                images: ['KR (22).JPG', 'KR (23).JPG', 'KR (24).JPG', 'KR (1).JPG'],
+                video: 'https://drive.google.com/file/d/DRIVE_FILE_ID_KR022/preview',
+                shape: 'Lurus',
+                length: '58 cm',
+                dapur: 'Dapur Ciamis',
+                pamor: 'Pamor Klasik',
+                tangguh: 'Tangguh',
+                warangka: 'Warangka Perak',
+                deder: 'Deder Kayu',
+                pendhok: 'Pendhok Emas',
+                penghibah: 'Penghibah Perak',
+                accessCode: '0022'
+            },
+            {
+                id: 'KR023',
+                qrCode: 'katalog.html#KR023',
+                name: 'Keris Kuningan',
+                description: 'Keris dari Kuningan dengan nilai sejarah.',
+                images: ['KR (23).JPG', 'KR (24).JPG', 'KR (1).JPG', 'KR (2).JPG'],
+                video: 'https://drive.google.com/file/d/DRIVE_FILE_ID_KR023/preview',
+                shape: 'Lurus',
+                length: '59 cm',
+                dapur: 'Dapur Kuningan',
+                pamor: 'Pamor Klasik',
+                tangguh: 'Tangguh',
+                warangka: 'Warangka Emas',
+                deder: 'Deder Kayu',
+                pendhok: 'Pendhok Perak',
+                penghibah: 'Penghibah Emas',
+                accessCode: '0023'
+            },
+            {
+                id: 'KR024',
+                qrCode: 'katalog.html#KR024',
+                name: 'Keris Majalengka',
+                description: 'Keris Majalengka dengan ornamen perak.',
+                images: ['KR (24).JPG', 'KR (1).JPG', 'KR (2).JPG', 'KR (3).JPG'],
+                video: 'https://drive.google.com/file/d/DRIVE_FILE_ID_KR024/preview',
+                shape: 'Lurus',
+                length: '60 cm',
+                dapur: 'Dapur Majalengka',
+                pamor: 'Pamor Klasik',
+                tangguh: 'Tangguh',
+                warangka: 'Warangka Perak',
+                deder: 'Deder Kayu',
+                pendhok: 'Pendhok Emas',
+                penghibah: 'Penghibah Perak',
+                accessCode: '0024'
+            },
+            {
+                id: 'KR025',
+                qrCode: 'katalog.html#KR025',
+                name: 'Keris Sumedang',
+                description: 'Keris dari Sumedang dengan motif unik.',
+                images: ['./image/keris/keris1.png', 'KR (4).JPG', 'KR (5).JPG', 'KR (6).JPG'],
+                video: 'https://drive.google.com/file/d/DRIVE_FILE_ID_KR025/preview',
+                shape: 'Lurus',
+                length: '61 cm',
+                dapur: 'Dapur Sumedang',
+                pamor: 'Pamor Klasik',
+                tangguh: 'Tangguh',
+                warangka: 'Warangka Emas',
+                deder: 'Deder Kayu',
+                pendhok: 'Pendhok Perak',
+                penghibah: 'Penghibah Emas',
+                accessCode: '0025'
+            },
+            {
+                id: 'KR026',
+                qrCode: 'katalog.html#KR026',
+                name: 'Keris Indramayu',
+                description: 'Keris Indramayu dengan desain tradisional.',
+                images: ['./image/keris/keris1.png', 'KR (7).JPG', 'KR (8).JPG', 'KR (9).JPG'],
+                video: 'https://drive.google.com/file/d/DRIVE_FILE_ID_KR026/preview',
+                shape: 'Lurus',
+                length: '62 cm',
+                dapur: 'Dapur Indramayu',
+                pamor: 'Pamor Klasik',
+                tangguh: 'Tangguh',
+                warangka: 'Warangka Perak',
+                deder: 'Deder Kayu',
+                pendhok: 'Pendhok Emas',
+                penghibah: 'Penghibah Perak',
+                accessCode: '0026'
+            },
+            {
+                id: 'KR027',
+                qrCode: 'katalog.html#KR027',
+                name: 'Keris Subang',
+                description: 'Keris Subang dengan nilai estetika.',
+                images: ['./image/keris/keris1.png', 'KR (10).JPG', 'KR (11).JPG', 'KR (12).JPG'],
+                video: 'https://drive.google.com/file/d/DRIVE_FILE_ID_KR027/preview',
+                shape: 'Lurus',
+                length: '63 cm',
+                dapur: 'Dapur Subang',
+                pamor: 'Pamor Klasik',
+                tangguh: 'Tangguh',
+                warangka: 'Warangka Emas',
+                deder: 'Deder Kayu',
+                pendhok: 'Pendhok Perak',
+                penghibah: 'Penghibah Emas',
+                accessCode: '0027'
+            },
+            {
+                id: 'KR028',
+                qrCode: 'katalog.html#KR028',
+                name: 'Keris Karawang',
+                description: 'Keris dari Karawang dengan motif indah.',
+                images: ['./image/keris/keris1.png', 'KR (13).JPG', 'KR (14).JPG', 'KR (15).JPG'],
+                video: 'https://drive.google.com/file/d/DRIVE_FILE_ID_KR028/preview',
+                shape: 'Lurus',
+                length: '64 cm',
+                dapur: 'Dapur Karawang',
+                pamor: 'Pamor Klasik',
+                tangguh: 'Tangguh',
+                warangka: 'Warangka Perak',
+                deder: 'Deder Kayu',
+                pendhok: 'Pendhok Emas',
+                penghibah: 'Penghibah Perak',
+                accessCode: '0028'
+            },
+            {
+                id: 'KR029',
+                qrCode: 'katalog.html#KR029',
+                name: 'Keris Bekasi',
+                description: 'Keris Bekasi dengan desain modern.',
+                images: ['./image/keris/keris1.png', 'KR (16).JPG', 'KR (17).JPG', 'KR (18).JPG'],
+                video: 'https://drive.google.com/file/d/DRIVE_FILE_ID_KR029/preview',
+                shape: 'Lurus',
+                length: '65 cm',
+                dapur: 'Dapur Bekasi',
+                pamor: 'Pamor Klasik',
+                tangguh: 'Tangguh',
+                warangka: 'Warangka Emas',
+                deder: 'Deder Kayu',
+                pendhok: 'Pendhok Perak',
+                penghibah: 'Penghibah Emas',
+                accessCode: '0029'
+            },
+            {
+                id: 'KR030',
+                qrCode: 'katalog.html#KR030',
+                name: 'Keris Depok',
+                description: 'Keris dari Depok dengan nilai budaya tinggi.',
+                images: ['./image/keris/keris1.png', 'KR (19).JPG', 'KR (20).JPG', 'KR (21).JPG'],
+                video: 'https://drive.google.com/file/d/DRIVE_FILE_ID_KR030/preview',
+                shape: 'Lurus',
+                length: '66 cm',
+                dapur: 'Dapur Depok',
+                pamor: 'Pamor Klasik',
+                tangguh: 'Tangguh',
+                warangka: 'Warangka Perak',
+                deder: 'Deder Kayu',
+                pendhok: 'Pendhok Emas',
+                penghibah: 'Penghibah Perak',
+                accessCode: '0030'
+            },
+            {
+                id: 'KR031',
+                qrCode: 'katalog.html#KR031',
+                name: 'Keris Jakarta',
+                description: 'Keris khas Jakarta dengan desain modern.',
+                images: ['./image/keris/keris1.png', 'KR (22).JPG', 'KR (23).JPG', 'KR (24).JPG'],
+                video: 'https://drive.google.com/file/d/DRIVE_FILE_ID_KR031/preview',
+                shape: 'Lurus',
+                length: '67 cm',
+                dapur: 'Dapur Jakarta',
+                pamor: 'Pamor Klasik',
+                tangguh: 'Tangguh',
+                warangka: 'Warangka Emas',
+                deder: 'Deder Kayu',
+                pendhok: 'Pendhok Perak',
+                penghibah: 'Penghibah Emas',
+                accessCode: '0031'
+            },
+            {
+                id: 'KR032',
+                qrCode: 'katalog.html#KR032',
+                name: 'Keris Banyumas',
+                description: 'Keris dari Banyumas dengan motif tradisional.',
+                images: ['./image/keris/keris1.png', 'KR (1).JPG', 'KR (2).JPG', 'KR (3).JPG'],
+                video: 'https://drive.google.com/file/d/DRIVE_FILE_ID_KR032/preview',
+                shape: 'Lurus',
+                length: '68 cm',
+                dapur: 'Dapur Banyumas',
+                pamor: 'Pamor Klasik',
+                tangguh: 'Tangguh',
+                warangka: 'Warangka Perak',
+                deder: 'Deder Kayu',
+                pendhok: 'Pendhok Emas',
+                penghibah: 'Penghibah Perak',
+                accessCode: '0032'
+            },
+            {
+                id: 'KR033',
+                qrCode: 'katalog.html#KR033',
+                name: 'Keris Cilacap',
+                description: 'Keris Cilacap dengan nilai sejarah tinggi.',
+                images: ['./image/keris/keris1.png', 'KR (4).JPG', 'KR (5).JPG', 'KR (6).JPG'],
+                video: 'https://drive.google.com/file/d/DRIVE_FILE_ID_KR033/preview',
+                shape: 'Lurus',
+                length: '69 cm',
+                dapur: 'Dapur Cilacap',
+                pamor: 'Pamor Klasik',
+                tangguh: 'Tangguh',
+                warangka: 'Warangka Emas',
+                deder: 'Deder Kayu',
+                pendhok: 'Pendhok Perak',
+                penghibah: 'Penghibah Emas',
+                accessCode: '0033'
+            },
+            {
+                id: 'KR034',
+                qrCode: 'katalog.html#KR034',
+                name: 'Keris Purwokerto',
+                description: 'Keris dari Purwokerto dengan desain klasik.',
+                images: ['./image/keris/keris1.png', 'KR (7).JPG', 'KR (8).JPG', 'KR (9).JPG'],
+                video: 'https://drive.google.com/file/d/DRIVE_FILE_ID_KR034/preview',
+                shape: 'Lurus',
+                length: '70 cm',
+                dapur: 'Dapur Purwokerto',
+                pamor: 'Pamor Klasik',
+                tangguh: 'Tangguh',
+                warangka: 'Warangka Perak',
+                deder: 'Deder Kayu',
+                pendhok: 'Pendhok Emas',
+                penghibah: 'Penghibah Perak',
+                accessCode: '0034'
+            },
+            {
+                id: 'KR035',
+                qrCode: 'katalog.html#KR035',
+                name: 'Keris Wonosobo',
+                description: 'Keris Wonosobo dengan motif unik.',
+                images: ['./image/keris/keris1.png', 'KR (10).JPG', 'KR (11).JPG', 'KR (12).JPG'],
+                video: 'https://drive.google.com/file/d/DRIVE_FILE_ID_KR035/preview',
+                shape: 'Lurus',
+                length: '71 cm',
+                dapur: 'Dapur Wonosobo',
+                pamor: 'Pamor Klasik',
+                tangguh: 'Tangguh',
+                warangka: 'Warangka Emas',
+                deder: 'Deder Kayu',
+                pendhok: 'Pendhok Perak',
+                penghibah: 'Penghibah Emas',
+                accessCode: '0035'
+            },
+            {
+                id: 'KR036',
+                qrCode: 'katalog.html#KR036',
+                name: 'Keris Magelang',
+                description: 'Keris dari Magelang dengan nilai budaya.',
+                images: ['./image/keris/keris1.png', 'KR (13).JPG', 'KR (14).JPG', 'KR (15).JPG'],
+                video: 'https://drive.google.com/file/d/DRIVE_FILE_ID_KR036/preview',
+                shape: 'Lurus',
+                length: '72 cm',
+                dapur: 'Dapur Magelang',
+                pamor: 'Pamor Klasik',
+                tangguh: 'Tangguh',
+                warangka: 'Warangka Perak',
+                deder: 'Deder Kayu',
+                pendhok: 'Pendhok Emas',
+                penghibah: 'Penghibah Perak',
+                accessCode: '0036'
+            },
+            {
+                id: 'KR037',
+                qrCode: 'katalog.html#KR037',
+                name: 'Keris Salatiga',
+                description: 'Keris Salatiga dengan desain indah.',
+                images: ['./image/keris/keris1.png', 'KR (16).JPG', 'KR (17).JPG', 'KR (18).JPG'],
+                video: 'https://drive.google.com/file/d/DRIVE_FILE_ID_KR037/preview',
+                shape: 'Lurus',
+                length: '73 cm',
+                dapur: 'Dapur Salatiga',
+                pamor: 'Pamor Klasik',
+                tangguh: 'Tangguh',
+                warangka: 'Warangka Emas',
+                deder: 'Deder Kayu',
+                pendhok: 'Pendhok Perak',
+                penghibah: 'Penghibah Emas',
+                accessCode: '0037'
+            },
+            {
+                id: 'KR038',
+                qrCode: 'katalog.html#KR038',
+                name: 'Keris Boyolali',
+                description: 'Keris Boyolali dengan motif tradisional.',
+                images: ['./image/keris/keris1.png', 'KR (19).JPG', 'KR (20).JPG', 'KR (21).JPG'],
+                video: 'https://drive.google.com/file/d/DRIVE_FILE_ID_KR038/preview',
+                shape: 'Lurus',
+                length: '74 cm',
+                dapur: 'Dapur Boyolali',
+                pamor: 'Pamor Klasik',
+                tangguh: 'Tangguh',
+                warangka: 'Warangka Perak',
+                deder: 'Deder Kayu',
+                pendhok: 'Pendhok Emas',
+                penghibah: 'Penghibah Perak',
+                accessCode: '0038'
+            },
+            {
+                id: 'KR039',
+                qrCode: 'katalog.html#KR039',
+                name: 'Keris Sragen',
+                description: 'Keris dari Sragen dengan kekuatan legendaris.',
+                images: ['./image/keris/keris1.png', 'KR (22).JPG', 'KR (23).JPG', 'KR (24).JPG'],
+                video: 'https://drive.google.com/file/d/DRIVE_FILE_ID_KR039/preview',
+                shape: 'Lurus',
+                length: '75 cm',
+                dapur: 'Dapur Sragen',
+                pamor: 'Pamor Klasik',
+                tangguh: 'Tangguh',
+                warangka: 'Warangka Emas',
+                deder: 'Deder Kayu',
+                pendhok: 'Pendhok Perak',
+                penghibah: 'Penghibah Emas',
+                accessCode: '0039'
+            },
+            {
+                id: 'KR040',
+                qrCode: 'katalog.html#KR040',
+                name: 'Keris Ngawi',
+                description: 'Keris Ngawi dengan nilai estetika tinggi.',
+                images: ['./image/keris/keris1.png', 'KR (1).JPG', 'KR (2).JPG', 'KR (3).JPG'],
+                video: 'https://drive.google.com/file/d/DRIVE_FILE_ID_KR040/preview',
+                shape: 'Lurus',
+                length: '76 cm',
+                dapur: 'Dapur Ngawi',
+                pamor: 'Pamor Klasik',
+                tangguh: 'Tangguh',
+                warangka: 'Warangka Perak',
+                deder: 'Deder Kayu',
+                pendhok: 'Pendhok Emas',
+                penghibah: 'Penghibah Perak',
+                accessCode: '0040'
+            }
+        ];
+
+        let currentKeris = null;
+
+        // Fungsi untuk menampilkan katalog
+        function displayCatalog() {
+            const catalogDiv = document.getElementById('catalog');
+            catalogDiv.innerHTML = '';
+            kerisCatalog.forEach(keris => {
+                const kerisDiv = document.createElement('div');
+                kerisDiv.className = 'keris-item';
+                kerisDiv.dataset.id = keris.id;
+
+                const imageContainer = document.createElement('div');
+                imageContainer.className = 'keris-image-container';
+
+                keris.images.forEach((imgSrc, index) => {
+                    const img = document.createElement('img');
+                    img.src = imgSrc;
+                    img.alt = keris.name;
+                    img.className = 'keris-gallery-image';
+                    if (index === 0) img.classList.add('active');
+                    img.onerror = () => { img.src = 'https://via.placeholder.com/250x200?text=No+Image'; };
+                    imageContainer.appendChild(img);
+                });
+
+                kerisDiv.appendChild(imageContainer);
+
+                kerisDiv.innerHTML += `
+                    <h3>${keris.name}</h3>
+                    <p>${keris.description}</p>
+                    <p><strong>ID: ${keris.id}</strong></p>
+                    <img id="qr-${keris.id}" style="width: 100px; height: 100px; margin: 10px auto;" alt="QR Code">
+                    <button class="view-profile-btn" onclick="showProfile('${keris.id}')">Lihat Profil</button>
+                `;
+                catalogDiv.appendChild(kerisDiv);
+                document.getElementById(`qr-${keris.id}`).src = `https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=${encodeURIComponent(keris.qrCode)}`;
+            });
+        }
+
+        // Fungsi untuk menampilkan profil keris
+        function showProfile(kerisId) {
+            currentKeris = kerisCatalog.find(k => k.id === kerisId);
+            if (currentKeris) {
+                document.getElementById('profile-title').textContent = currentKeris.name;
+                document.getElementById('profile-modal').style.display = 'block';
+                document.getElementById('access-code-section').style.display = 'block';
+                document.getElementById('profile-details').style.display = 'none';
+            }
+        }
+
+        // Fungsi untuk memeriksa kode akses
+        function checkAccessCode() {
+            const enteredCode = document.getElementById('access-code').value;
+            if (enteredCode === currentKeris.accessCode) {
+                document.getElementById('access-code-section').style.display = 'none';
+                document.getElementById('profile-details').style.display = 'block';
+
+                const modalImageContainer = document.getElementById('modal-image-container');
+                modalImageContainer.innerHTML = ''; 
+
+                currentKeris.images.forEach((imgSrc, index) => {
+                    const img = document.createElement('img');
+                    img.src = imgSrc;
+                    img.alt = currentKeris.name;
+                    img.className = 'keris-gallery-image';
+                    if (index === 0) img.classList.add('active');
+                    img.onerror = () => { img.src = 'https://via.placeholder.com/400x400?text=No+Image'; };
+                    img.onclick = () => openImageViewModal(img.src);
+                    modalImageContainer.appendChild(img);
+                });
+
+                // Show/Hide controls based on image count
+                const controlsDiv = document.getElementById('gallery-controls');
+                if (currentKeris.images.length > 1) {
+                    controlsDiv.style.display = 'flex';
+                } else {
+                    controlsDiv.style.display = 'none';
+                }
+                
+                updateImageCounter();
+
+                document.getElementById('profile-description').textContent = currentKeris.description;
+                document.getElementById('profile-inventory').textContent = currentKeris.id;
+                document.getElementById('profile-shape').textContent = currentKeris.shape;
+                document.getElementById('profile-length').textContent = currentKeris.length;
+                document.getElementById('profile-dapur').textContent = currentKeris.dapur;
+                document.getElementById('profile-pamor').textContent = currentKeris.pamor;
+                document.getElementById('profile-tangguh').textContent = currentKeris.tangguh;
+                document.getElementById('profile-warangka').textContent = currentKeris.warangka;
+                document.getElementById('profile-deder').textContent = currentKeris.deder;
+                document.getElementById('profile-pendhok').textContent = currentKeris.pendhok;
+                document.getElementById('profile-penghibah').textContent = currentKeris.penghibah;
+                // Generate QR code in profile modal using online API
+                document.getElementById('profile-qr').src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(currentKeris.qrCode)}`;
+                document.getElementById('profile-video').src = currentKeris.video;
+            } else {
+                alert('Kode akses salah. Silakan coba lagi.');
+            }
+        }
+
+        function updateImageCounter() {
+            const modalImageContainer = document.getElementById('modal-image-container');
+            const images = modalImageContainer.querySelectorAll('.keris-gallery-image');
+            const counterElement = document.getElementById('image-counter');
+
+            if (images.length > 0) {
+                let currentIndex = Array.from(images).findIndex(img => img.classList.contains('active'));
+                if (images.length > 1) {
+                    counterElement.textContent = `Gambar ${currentIndex + 1} dari ${images.length}`;
+                } else {
+                    counterElement.textContent = '';
+                }
+            } else {
+                counterElement.textContent = '';
+            }
+        }
+
+        function changeModalSlide(n) {
+            const modalImageContainer = document.getElementById('modal-image-container');
+            const images = modalImageContainer.querySelectorAll('.keris-gallery-image');
+            if (images.length <= 1) return;
+
+            let currentIndex = Array.from(images).findIndex(img => img.classList.contains('active'));
+
+            images[currentIndex].classList.remove('active');
+
+            let nextIndex = currentIndex + n;
+            if (nextIndex >= images.length) {
+                nextIndex = 0;
+            }
+            if (nextIndex < 0) {
+                nextIndex = images.length - 1;
+            }
+
+            images[nextIndex].classList.add('active');
+            updateImageCounter();
+        }
+
+        // Fungsi untuk menutup profil
+        function closeProfile() {
+            document.getElementById('profile-modal').style.display = 'none';
+            document.getElementById('profile-video').src = '';
+            document.getElementById('access-code').value = '';
+            document.getElementById('modal-image-container').innerHTML = '';
+            document.getElementById('image-counter').textContent = '';
+            currentKeris = null;
+            closeImageViewModal();
+        }
+
+        function openImageViewModal(src) {
+            const modal = document.getElementById('image-view-modal');
+            const modalImg = document.getElementById('view-img');
+            modal.style.display = 'block';
+            modalImg.src = src;
+        }
+
+        function closeImageViewModal() {
+            const modal = document.getElementById('image-view-modal');
+            if (modal) modal.style.display = 'none';
+        }
+
+
+        // Tampilkan katalog saat halaman dimuat
+        window.onload = function() {
+            displayCatalog();
+
+            // Check for hash in URL (e.g., #KR001)
+            const hash = window.location.hash.substring(1); // Remove the #
+            if (hash) {
+                showProfile(hash);
+            }
+        };
+
+    </script>
+</body>
+</html>
