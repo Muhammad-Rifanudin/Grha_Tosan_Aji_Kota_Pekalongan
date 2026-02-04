@@ -61,7 +61,7 @@
         }
 
         .back-btn {
-            background-color: #309eff;
+            background-color: #DAA520;;
             color: white;
             border: none;
             padding: 10px 20px;
@@ -73,7 +73,7 @@
         }
 
         .back-btn:hover {
-            background-color: #545b62;
+            background-color: #5c5c5c;
         }
 
         .modal {
@@ -307,6 +307,28 @@
         .menu-toggle-btn.active::after {
             content: '\25B2';
         }
+
+        .history-img {
+            float: left;
+            width: 40%;
+            max-width: 350px;
+            margin-right: 25px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border: 2px solid #DAA520;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            object-fit: cover;
+        }
+
+        @media (max-width: 768px) {
+            .history-img {
+                float: none;
+                width: 100%;
+                max-width: 100%;
+                margin-right: 0;
+                margin-bottom: 20px;
+            }
+        }
     </style>
 </head>
 
@@ -398,6 +420,48 @@
                     </tr>
                 </tbody>
             </table>
+        </div>
+    </div>
+
+    <div class="section">
+        <button class="menu-toggle-btn" onclick="toggleSection(this, 'visi-misi')">Visi dan Misi Grha Tosan Aji</button>
+        <div id="visi-misi" style="display: none; margin-top: 20px; animation: fadeIn 0.5s;">
+            <h3 style="color: #DAA520; border-bottom: 1px solid rgba(218, 165, 32, 0.2); padding-bottom: 10px; margin-bottom: 15px; font-family: 'Times New Roman', Times, serif;">Visi</h3>
+            <p style="text-align: justify; line-height: 1.6; color: #e9edef; margin-bottom: 20px; font-style: italic;">
+                "Menjadi pusat pelestarian, edukasi, dan pengembangan budaya Tosan Aji yang unggul dan mendunia, serta mewujudkan masyarakat yang bangga akan warisan leluhur."
+            </p>
+
+            <h3 style="color: #DAA520; border-bottom: 1px solid rgba(218, 165, 32, 0.2); padding-bottom: 10px; margin-bottom: 15px; font-family: 'Times New Roman', Times, serif;">Misi</h3>
+            <ol style="color: #e9edef; line-height: 1.6; margin-left: 20px; padding-left: 0;">
+                <li style="margin-bottom: 10px;">Melestarikan fisik dan nilai filosofis Tosan Aji sebagai Warisan Budaya Takbenda.</li>
+                <li style="margin-bottom: 10px;">Menyelenggarakan edukasi publik yang inklusif tentang sejarah, teknologi, dan seni keris.</li>
+                <li style="margin-bottom: 10px;">Mengembangkan riset dan kajian ilmiah mengenai metalurgi dan antropologi keris.</li>
+                <li style="margin-bottom: 10px;">Membangun jejaring kerjasama dengan komunitas budaya, pemerintah, dan institusi internasional.</li>
+                <li>Menjadikan Grha Tosan Aji sebagai destinasi wisata budaya yang inspiratif dan edukatif.</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="section">
+        <button class="menu-toggle-btn" onclick="toggleSection(this, 'history-details')">Sejarah Berdirinya Grha</button>
+        <div id="history-details" style="display: none; margin-top: 20px; animation: fadeIn 0.5s;">
+            <img src="D (18).jpeg" alt="Gedung Grha Tosan Aji" class="history-img">
+            <h3 style="color: #DAA520; border-bottom: 1px solid rgba(218, 165, 32, 0.2); padding-bottom: 10px; margin-bottom: 15px; font-family: 'Times New Roman', Times, serif;">Latar Belakang & Pendirian</h3>
+            <p style="text-align: justify; line-height: 1.6; color: #e9edef; margin-bottom: 15px;">
+                Grha Tosan Aji didirikan sebagai wujud dedikasi terhadap pelestarian warisan budaya adiluhung Nusantara, khususnya Tosan Aji. Bermula dari keprihatinan akan lunturnya pemahaman generasi muda terhadap nilai filosofis keris yang seringkali tertutup oleh stigma mistis, sebuah inisiatif lahir di Pekalongan untuk mendirikan pusat edukasi yang terbuka dan ilmiah.
+            </p>
+            <p style="text-align: justify; line-height: 1.6; color: #e9edef; margin-bottom: 15px;">
+                Digagas oleh para pemerhati budaya dan kolektor senior, Grha ini resmi berdiri dengan tujuan utama sebagai wadah konservasi, edukasi, dan apresiasi. Kami percaya bahwa keris bukan sekadar senjata, melainkan manifestasi doa, seni metalurgi tingkat tinggi, dan simbol jati diri bangsa yang diakui dunia (UNESCO).
+            </p>
+            
+            <h3 style="color: #DAA520; border-bottom: 1px solid rgba(218, 165, 32, 0.2); padding-bottom: 10px; margin-bottom: 15px; font-family: 'Times New Roman', Times, serif; margin-top: 25px;">Perkembangan Saat Ini</h3>
+            <p style="text-align: justify; line-height: 1.6; color: #e9edef;">
+                Seiring berjalannya waktu, Grha Tosan Aji terus bertransformasi. Dari sekadar ruang pamer, kini telah menjadi pusat kegiatan budaya yang aktif. Kami rutin menyelenggarakan pameran tematik, sarasehan budaya, pelatihan (workshop) pembuatan warangka dan pamor, serta layanan perawatan pusaka (jamasan) bagi masyarakat luas.
+            </p>
+            <p style="text-align: justify; line-height: 1.6; color: #e9edef;">
+                Dengan semangat "Nguri-uri Budaya Jawi", Grha Tosan Aji berkomitmen untuk terus menjaga nyala api peradaban ini agar tetap bersinar dan diwariskan dengan bangga kepada generasi mendatang.
+            </p>
+            <div style="clear: both;"></div>
         </div>
     </div>
 
