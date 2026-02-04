@@ -126,6 +126,54 @@
             transition: 0.3s;
             cursor: pointer;
         }
+
+        /* Dropdown Menu Styles */
+        .menu-toggle-btn {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto 20px;
+            background-color: rgba(17, 27, 33, 0.9);
+            color: #DAA520;
+            border: 1px solid #DAA520;
+            padding: 15px;
+            font-size: 1.2rem;
+            font-family: 'Times New Roman', Times, serif;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .menu-toggle-btn:hover {
+            background-color: #DAA520;
+            color: #111b21;
+        }
+
+        .menu-toggle-btn::after {
+            content: '\25BC';
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .menu-toggle-btn.active::after {
+            content: '\25B2';
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
     </style>
 </head>
 
@@ -133,108 +181,176 @@
 
     <button class="back-btn" onclick="window.location.href='beranda.html'">❮❮❮❮</button>
 
-    <h2>Galeri Anatomi Keris</h2>
+    <h2>Anatomi Keris</h2>
 
-    <div class="gallery-container">
-        <!-- Item 1 -->
-        <div class="gallery-item">
-            <img src="RC (1).jpg" alt="Ukiran / Deder" onclick="openImageModal(this)">
-            <div class="gallery-content">
-                <h3>1. Ukiran / Deder</h3>
-                <p>Hulu keris atau pegangan yang diukir dengan detail artistik. Selain fungsi ergonomis, motif ukirannya
-                    seringkali menyimbolkan figur pelindung atau harapan keselamatan bagi pemiliknya.</p>
+    <button class="menu-toggle-btn" onclick="toggleSection(this, 'wawasan-keris')">Wawasan & Filosofi Keris</button>
+    <div id="wawasan-keris"
+        style="display: none; animation: fadeIn 0.5s; max-width: 1200px; margin: 0 auto 30px; text-align: left; background-color: rgba(40, 50, 60, 0.7); padding: 25px; border-radius: 8px; border: 1px solid rgba(218, 165, 32, 0.2);">
+
+        <h3
+            style="color: #DAA520; border-bottom: 1px solid rgba(218, 165, 32, 0.3); padding-bottom: 5px; margin-top: 0;">
+            Sejarah Singkat</h3>
+        <p style="line-height: 1.6;">Keris adalah senjata tikam golongan belati yang berasal dari Jawa sekitar abad
+            ke-9. Awalnya berfungsi sebagai senjata pertahanan diri, keris berkembang menjadi benda pusaka, simbol
+            status sosial, dan atribut penting dalam busana adat Jawa.</p>
+
+        <h3 style="color: #DAA520; border-bottom: 1px solid rgba(218, 165, 32, 0.3); padding-bottom: 5px;">Landasan
+            Teoris & Religi</h3>
+        <p style="line-height: 1.6;">Dalam khazanah budaya Nusantara yang bernafaskan Islam, keberadaan besi (tosan)
+            sering dikaitkan dengan <strong>Surah Al-Hadid (Besi) ayat 25</strong>: <em>"...dan Kami ciptakan besi yang
+                padanya terdapat kekuatan yang hebat dan berbagai manfaat bagi manusia..."</em>. Para Wali Songo
+            menggunakan keris sebagai media dakwah kultural dan simbol kepemimpinan yang mengayomi.</p>
+
+        <h3 style="color: #DAA520; border-bottom: 1px solid rgba(218, 165, 32, 0.3); padding-bottom: 5px;">Hari Penting
+        </h3>
+        <ul style="line-height: 1.6;">
+            <li><strong>7 November:</strong> Hari Wayang & Keris Dunia (Diakui UNESCO sebagai <em>Masterpiece of the
+                    Oral and Intangible Heritage of Humanity</em> pada 2005).</li>
+            <li><strong>1 Suro:</strong> Tahun Baru Jawa, momentum sakral untuk jamasan (pembersihan/perawatan) pusaka.
+            </li>
+        </ul>
+
+        <h3 style="color: #DAA520; border-bottom: 1px solid rgba(218, 165, 32, 0.3); padding-bottom: 5px;">Nilai-Nilai
+            Keris di Masyarakat</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+            <div>
+                <strong style="color: #DAA520;">1. Pendidikan</strong>
+                <p style="margin-top: 5px;">Mengajarkan karakter kesabaran, ketelitian, dan ketekunan melalui proses
+                    tempa lipat yang rumit. Filosofi pamor mengajarkan tentang harapan dan doa.</p>
+            </div>
+            <div>
+                <strong style="color: #DAA520;">2. Sosial</strong>
+                <p style="margin-top: 5px;">Sebagai simbol persaudaraan (cinderamata diplomatik) dan penanda status
+                    sosial yang menjunjung tinggi etika dan tata krama.</p>
+            </div>
+            <div>
+                <strong style="color: #DAA520;">3. Ekonomi</strong>
+                <p style="margin-top: 5px;">Menggerakkan roda ekonomi kreatif yang meliputi para Empu, pengrajin
+                    warangka (mranggi), pengrajin perak, hingga jasa perawatan keris.</p>
+            </div>
+            <div>
+                <strong style="color: #DAA520;">4. Budaya</strong>
+                <p style="margin-top: 5px;">Menjadi identitas jati diri bangsa Indonesia yang membanggakan dan warisan
+                    leluhur yang wajib dilestarikan.</p>
             </div>
         </div>
-        <!-- Item 2 -->
-        <div class="gallery-item">
-            <img src="RC (2).jpg" alt="Mendak" onclick="openImageModal(this)">
-            <div class="gallery-content">
-                <h3>2. Mendak</h3>
-                <p>Cincin logam kecil berhias permata atau ukiran halus yang membatasi hulu dan bilah. Detail kriya pada
-                    mendak menunjukkan tingkat kehalusan garapan empu perhiasan.</p>
+    </div>
+
+    <button class="menu-toggle-btn" onclick="toggleSection(this, 'anatomi-galeri')">Galeri Anatomi Keris</button>
+    <div id="anatomi-galeri" style="display: none; animation: fadeIn 0.5s;">
+        <div class="gallery-container">
+            <!-- Item 1 -->
+            <div class="gallery-item">
+                <img src="RC (1).jpg" alt="Ukiran / Deder" onclick="openImageModal(this)">
+                <div class="gallery-content">
+                    <h3>1. Ukiran / Deder</h3>
+                    <p>Hulu keris atau pegangan yang diukir dengan detail artistik. Selain fungsi ergonomis, motif
+                        ukirannya
+                        seringkali menyimbolkan figur pelindung atau harapan keselamatan bagi pemiliknya.</p>
+                </div>
+            </div>
+            <!-- Item 2 -->
+            <div class="gallery-item">
+                <img src="RC (2).jpg" alt="Mendak" onclick="openImageModal(this)">
+                <div class="gallery-content">
+                    <h3>2. Mendak</h3>
+                    <p>Cincin logam kecil berhias permata atau ukiran halus yang membatasi hulu dan bilah. Detail kriya
+                        pada
+                        mendak menunjukkan tingkat kehalusan garapan empu perhiasan.</p>
+                </div>
+            </div>
+            <!-- Item 3 -->
+            <div class="gallery-item">
+                <img src="RC (3).jpg" alt="Selut" onclick="openImageModal(this)">
+                <div class="gallery-content">
+                    <h3>3. Selut</h3>
+                    <p>Ornamen berbentuk mangkuk yang melingkupi mendak, memberikan kesan lebih megah pada pangkal hulu.
+                        Biasanya terdapat pada keris-keris ageman untuk acara resmi.</p>
+                </div>
+            </div>
+            <!-- Item 4 -->
+            <div class="gallery-item">
+                <img src="RC (4).jpg" alt="Pesi" onclick="openImageModal(this)">
+                <div class="gallery-content">
+                    <h3>4. Pesi</h3>
+                    <p>Tangkai besi yang tersembunyi di dalam hulu, merupakan 'tulang punggung' yang menghubungkan bilah
+                        dengan pegangan. Melambangkan penyatuan antara raga (bilah) dan jiwa (hulu).</p>
+                </div>
+            </div>
+            <!-- Item 5 -->
+            <div class="gallery-item">
+                <img src="RC (5).jpg" alt="Gonjo" onclick="openImageModal(this)">
+                <div class="gallery-content">
+                    <h3>5. Gonjo</h3>
+                    <p>Bagian dasar bilah yang melintang, tempat pesi melekat. Gonjo sering disebut sebagai 'rumah' bagi
+                        pamor yang mengalir dari bilah, menyatukan aspek maskulin dan feminin.</p>
+                </div>
+            </div>
+            <!-- Item 6 -->
+            <div class="gallery-item">
+                <img src="RC (6).jpg" alt="Bilah" onclick="openImageModal(this)">
+                <div class="gallery-content">
+                    <h3>6. Bilah</h3>
+                    <p>Wujud utama tosan aji, ditempa dari lipatan besi dan baja hingga ribuan lapis. Ketajaman dan
+                        kelenturannya adalah bukti penguasaan metalurgi tingkat tinggi para empu.</p>
+                </div>
+            </div>
+            <!-- Item 7 -->
+            <div class="gallery-item">
+                <img src="RC (7).jpg" alt="Pamor" onclick="openImageModal(this)">
+                <div class="gallery-content">
+                    <h3>7. Pamor</h3>
+                    <p>Motif artistik pada permukaan bilah yang terbentuk dari gradasi warna logam. Pamor dipercaya
+                        memiliki
+                        tuah tertentu dan menambah keindahan visual yang magis.</p>
+                </div>
+            </div>
+            <!-- Item 8 -->
+            <div class="gallery-item">
+                <img src="RC (8).jpg" alt="Warangka" onclick="openImageModal(this)">
+                <div class="gallery-content">
+                    <h3>8. Warangka</h3>
+                    <p>Sarung keris bagian atas (sampir) yang dibuat dari kayu pilihan dengan serat indah (pelet).
+                        Bentuknya
+                        (Gayaman/Ladrang) menyesuaikan etika busana dan situasi pemakaian.</p>
+                </div>
+            </div>
+            <!-- Item 9 -->
+            <div class="gallery-item">
+                <img src="RC (9).jpg" alt="Gandar" onclick="openImageModal(this)">
+                <div class="gallery-content">
+                    <h3>9. Gandar</h3>
+                    <p>Badan sarung keris yang memanjang mengikuti alur bilah. Kayu gandar biasanya dipilih yang ringan
+                        namun kuat untuk menjaga bilah dari kelembapan.</p>
+                </div>
+            </div>
+            <!-- Item 10 -->
+            <div class="gallery-item">
+                <img src="RC (10).jpg" alt="Pendok" onclick="openImageModal(this)">
+                <div class="gallery-content">
+                    <h3>10. Pendok</h3>
+                    <p>Lapisan pelindung gandar berbahan logam mulia seperti perak atau suasa. Ukiran pada pendok
+                        seringkali
+                        bermotif flora atau fauna yang melambangkan kemakmuran.</p>
+                </div>
+            </div>
+            <!-- Item 11 -->
+            <div class="gallery-item">
+                <img src="RC (11).jpg" alt="Pucuk" onclick="openImageModal(this)">
+                <div class="gallery-content">
+                    <h3>11. Pucuk</h3>
+                    <p>Ujung bilah yang meruncing tajam, titik fokus energi keris. Secara filosofis mengingatkan manusia
+                        untuk senantiasa memusatkan pikiran pada Tuhan Yang Maha Esa.</p>
+                </div>
             </div>
         </div>
-        <!-- Item 3 -->
-        <div class="gallery-item">
-            <img src="RC (3).jpg" alt="Selut" onclick="openImageModal(this)">
-            <div class="gallery-content">
-                <h3>3. Selut</h3>
-                <p>Ornamen berbentuk mangkuk yang melingkupi mendak, memberikan kesan lebih megah pada pangkal hulu.
-                    Biasanya terdapat pada keris-keris ageman untuk acara resmi.</p>
-            </div>
-        </div>
-        <!-- Item 4 -->
-        <div class="gallery-item">
-            <img src="RC (4).jpg" alt="Pesi" onclick="openImageModal(this)">
-            <div class="gallery-content">
-                <h3>4. Pesi</h3>
-                <p>Tangkai besi yang tersembunyi di dalam hulu, merupakan 'tulang punggung' yang menghubungkan bilah
-                    dengan pegangan. Melambangkan penyatuan antara raga (bilah) dan jiwa (hulu).</p>
-            </div>
-        </div>
-        <!-- Item 5 -->
-        <div class="gallery-item">
-            <img src="RC (5).jpg" alt="Gonjo" onclick="openImageModal(this)">
-            <div class="gallery-content">
-                <h3>5. Gonjo</h3>
-                <p>Bagian dasar bilah yang melintang, tempat pesi melekat. Gonjo sering disebut sebagai 'rumah' bagi
-                    pamor yang mengalir dari bilah, menyatukan aspek maskulin dan feminin.</p>
-            </div>
-        </div>
-        <!-- Item 6 -->
-        <div class="gallery-item">
-            <img src="RC (6).jpg" alt="Bilah" onclick="openImageModal(this)">
-            <div class="gallery-content">
-                <h3>6. Bilah</h3>
-                <p>Wujud utama tosan aji, ditempa dari lipatan besi dan baja hingga ribuan lapis. Ketajaman dan
-                    kelenturannya adalah bukti penguasaan metalurgi tingkat tinggi para empu.</p>
-            </div>
-        </div>
-        <!-- Item 7 -->
-        <div class="gallery-item">
-            <img src="RC (7).jpg" alt="Pamor" onclick="openImageModal(this)">
-            <div class="gallery-content">
-                <h3>7. Pamor</h3>
-                <p>Motif artistik pada permukaan bilah yang terbentuk dari gradasi warna logam. Pamor dipercaya memiliki
-                    tuah tertentu dan menambah keindahan visual yang magis.</p>
-            </div>
-        </div>
-        <!-- Item 8 -->
-        <div class="gallery-item">
-            <img src="RC (8).jpg" alt="Warangka" onclick="openImageModal(this)">
-            <div class="gallery-content">
-                <h3>8. Warangka</h3>
-                <p>Sarung keris bagian atas (sampir) yang dibuat dari kayu pilihan dengan serat indah (pelet). Bentuknya
-                    (Gayaman/Ladrang) menyesuaikan etika busana dan situasi pemakaian.</p>
-            </div>
-        </div>
-        <!-- Item 9 -->
-        <div class="gallery-item">
-            <img src="RC (9).jpg" alt="Gandar" onclick="openImageModal(this)">
-            <div class="gallery-content">
-                <h3>9. Gandar</h3>
-                <p>Badan sarung keris yang memanjang mengikuti alur bilah. Kayu gandar biasanya dipilih yang ringan
-                    namun kuat untuk menjaga bilah dari kelembapan.</p>
-            </div>
-        </div>
-        <!-- Item 10 -->
-        <div class="gallery-item">
-            <img src="RC (10).jpg" alt="Pendok" onclick="openImageModal(this)">
-            <div class="gallery-content">
-                <h3>10. Pendok</h3>
-                <p>Lapisan pelindung gandar berbahan logam mulia seperti perak atau suasa. Ukiran pada pendok seringkali
-                    bermotif flora atau fauna yang melambangkan kemakmuran.</p>
-            </div>
-        </div>
-        <!-- Item 11 -->
-        <div class="gallery-item">
-            <img src="RC (11).jpg" alt="Pucuk" onclick="openImageModal(this)">
-            <div class="gallery-content">
-                <h3>11. Pucuk</h3>
-                <p>Ujung bilah yang meruncing tajam, titik fokus energi keris. Secara filosofis mengingatkan manusia
-                    untuk senantiasa memusatkan pikiran pada Tuhan Yang Maha Esa.</p>
-            </div>
-        </div>
+    </div>
+
+    <div style="max-width: 1200px; margin: 40px auto; text-align: center; padding: 30px; background: linear-gradient(to right, rgba(17, 27, 33, 0.9), rgba(40, 50, 60, 0.9)); border: 1px solid #DAA520; border-radius: 8px; box-shadow: 0 4px 15px rgba(218, 165, 32, 0.2);">
+        <h3 style="color: #DAA520; font-family: 'Times New Roman', Times, serif; font-size: 1.5rem; margin-bottom: 15px;">Menyelami Lebih Dalam</h3>
+        <p style="font-size: 1.1rem; line-height: 1.8; color: #e9edef; font-style: italic;">
+            "Pengetahuan yang tertulis di sini hanyalah gerbang pembuka. Untuk menyelami samudra kearifan yang sesungguhnya, <strong>Grha Tosan Aji</strong> membuka pintunya bagi Anda. Datang dan saksikanlah secara langsung bagaimana besi, baja, dan pamor luluh dalam harmoni. Rasakan aura keagungan masa lalu yang tetap hidup, dan temukan detail-detail tersembunyi yang tak terwakili oleh lensa kamera. Mari berkunjung, dan biarkan pusaka-pusaka ini berkisah langsung kepada jiwa Anda."
+        </p>
     </div>
 
     <!-- The Modal for Image Zoom -->
@@ -260,6 +376,17 @@
         modal.onclick = function (event) {
             if (event.target == modal) {
                 closeImageModal();
+            }
+        }
+
+        function toggleSection(btn, id) {
+            const section = document.getElementById(id);
+            if (section.style.display === 'none') {
+                section.style.display = 'block';
+                btn.classList.add('active');
+            } else {
+                section.style.display = 'none';
+                btn.classList.remove('active');
             }
         }
     </script>
