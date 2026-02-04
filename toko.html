@@ -129,6 +129,58 @@
             background-color: #DAA520;
             color: #111b21;
         }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 80%;
+            max-height: 80%;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            border: 10px solid #8B4513;
+            border-radius: 10px;
+            background-color: #deb887;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #ffffff;
+            background-color: #d16519;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+            z-index: 2;
+        }
+
+        .close-btn:hover {
+            background-color: #A0522D;
+        }
+
+        .gallery-item img {
+            cursor: pointer;
+        }
     </style>
 </head>
 
@@ -148,7 +200,7 @@
         <h2>Jasa Perawatan Keris</h2>
         <div class="gallery-grid">
             <div class="gallery-item">
-                <img src="TK (1).jpg" alt="Jasa Perawatan 1">
+                <img src="TK (1).jpg" alt="Jasa Perawatan 1" onclick="openModal(this.src)">
                 <div class="service-details">
                     <h3>Jamasan Pusaka</h3>
                     <p>Layanan pencucian dan pembersihan keris secara tradisional (siraman) setiap bulan Suro atau
@@ -165,7 +217,7 @@
                 </div>
             </div>
             <div class="gallery-item">
-                <img src="TK (2).jpg" alt="Jasa Perawatan 2">
+                <img src="TK (2).jpg" alt="Jasa Perawatan 2" onclick="openModal(this.src)">
                 <div class="service-details">
                     <h3>Pewarangan</h3>
                     <p>Proses pelapisan ulang bilah dengan warangan (arsenik) dan jeruk nipis untuk memunculkan kembali
@@ -182,7 +234,7 @@
                 </div>
             </div>
             <div class="gallery-item">
-                <img src="TK (3).jpg" alt="Jasa Perawatan 3">
+                <img src="TK (3).jpg" alt="Jasa Perawatan 3" onclick="openModal(this.src)">
                 <div class="service-details">
                     <h3>Reparasi Warangka</h3>
                     <p>Perbaikan sarung keris yang retak, pecah, atau longgar. Meliputi penggantian gandar, perbaikan
@@ -199,12 +251,29 @@
                 </div>
             </div>
             <div class="gallery-item">
-                <img src="TK (4).jpg" alt="Jasa Perawatan 4">
+                <img src="TK (4).jpg" alt="Jasa Perawatan 4" onclick="openModal(this.src)">
                 <div class="service-details">
                     <h3>Ganti Deder & Mendak</h3>
                     <p>Layanan penggantian hulu keris (deder) dengan berbagai model ukiran (Solo, Yogya, Madura) dan
                         penggantian cincin keris (mendak/selut) yang lebih estetik.</p>
                     <a href="https://wa.me/6287711808500?text=Halo,%20saya%20ingin%20bertanya%20tentang%20Ganti%20Deder%20dan%20Mendak"
+                        class="wa-btn" target="_blank">
+                        Tanyakan Dulu
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            viewBox="0 0 16 16">
+                            <path
+                                d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="P (4).jpg" alt="Jasa Sertifikasi" onclick="openModal(this.src)">
+                <div class="service-details">
+                    <h3>Sertifikasi & Kurasi</h3>
+                    <p>Layanan identifikasi lengkap (tangguh, dapur, pamor) dan penerbitan sertifikat keaslian keris
+                        oleh kurator ahli Grha Tosan Aji.</p>
+                    <a href="https://wa.me/6287711808500?text=Halo,%20saya%20ingin%20bertanya%20tentang%20Jasa%20Sertifikasi"
                         class="wa-btn" target="_blank">
                         Tanyakan Dulu
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -222,7 +291,7 @@
         <h2>Kelas Keris (Dimaharkan)</h2>
         <div class="gallery-grid">
             <div class="gallery-item">
-                <img src="KR (1).JPG" alt="Keris Souvenir">
+                <img src="KR (1).JPG" alt="Keris Souvenir" onclick="openModal(this.src)">
                 <div class="service-details">
                     <h3>Kelas Souvenir</h3>
                     <p>Keris dengan harga terjangkau, cocok untuk hiasan dinding, oleh-oleh, atau pelengkap busana adat.
@@ -239,7 +308,7 @@
                 </div>
             </div>
             <div class="gallery-item">
-                <img src="KR (5).JPG" alt="Keris Kamardikan">
+                <img src="KR (5).JPG" alt="Keris Kamardikan" onclick="openModal(this.src)">
                 <div class="service-details">
                     <h3>Kelas Kamardikan (Garap Halus)</h3>
                     <p>Keris baru (era kemerdekaan) yang dibuat oleh empu masa kini dengan material pilihan dan teknik
@@ -256,7 +325,7 @@
                 </div>
             </div>
             <div class="gallery-item">
-                <img src="KR (10).JPG" alt="Keris Sepuh">
+                <img src="KR (10).JPG" alt="Keris Sepuh" onclick="openModal(this.src)">
                 <div class="service-details">
                     <h3>Kelas Sepuh (Kolektor)</h3>
                     <p>Keris tua/kuno dari berbagai tangguh (era kerajaan) yang memiliki nilai sejarah, filosofi tinggi,
@@ -275,6 +344,27 @@
         </div>
     </div>
 
+    <div id="modal" class="modal">
+        <button class="close-btn" onclick="closeModal()">Tutup</button>
+        <img class="modal-content" id="modal-img">
+    </div>
+
+    <script>
+        function openModal(src) {
+            document.getElementById('modal').style.display = 'block';
+            document.getElementById('modal-img').src = src;
+        }
+
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
+
+        window.onclick = function (event) {
+            if (event.target == document.getElementById('modal')) {
+                closeModal();
+            }
+        }
+    </script>
 </body>
 
 </html>
